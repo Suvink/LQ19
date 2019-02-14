@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class livescores extends StatefulWidget {
   @override
@@ -141,12 +142,8 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
-
-  //var totalExtras = ;
-
-
     final totalextras = Container(
-      margin: EdgeInsets.only(top: 10.0),
+      margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
       height: 30.0,
       alignment: Alignment(0.0, 0.0),
       child: new ListView(
@@ -155,59 +152,158 @@ class _LivescoreState extends State<livescores> {
         children: <Widget>[
           Text(
             "4\nTotal Extras",
-            style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: 15.0),
           Text(
             "2\n Wides",
-            style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: 15.0),
           Text(
             "0\n No Balls",
-            style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: 15.0),
           Text(
             "1\n Leg Bys",
-            style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
             textAlign: TextAlign.center,
           )
         ],
       ),
     );
 
+    //Batsman and Bowler details
+    final bottomTitleSection = new Container(
+      child: Row(
+        children: <Widget>[
+          new Container(
+            child: Image(
+              image: AssetImage("./assets/Bowler.png"),
+              height: 94.0,
+              width: 53.0,
+            ),
+          ),
+          new Container(
+              child: Text(
+            "Bowling",
+            style: TextStyle(fontSize: 24.0, color: Colors.white),
+          )),
+          SizedBox(width: 25.0),
+          new Container(
+            child: Image(
+              image: AssetImage("./assets/batsman.png"),
+              height: 94.0,
+              width: 53.0,
+            ),
+          ),
+          new Container(
+              child: Text(
+            "Batting",
+            style: TextStyle(fontSize: 24.0, color: Colors.white),
+          )),
+        ],
+      ),
+    );
 
+    final bowlerDetails = new Container(
+      margin: EdgeInsets.only(left: 10.0, right: 30.0),
+      child: Column(
+        children: <Widget>[
+          new Container(
+              child: Text(
+            "Charith Asalanka*",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+          new Container(
+              margin: EdgeInsets.only(bottom: 10.0),
+              child: Text(
+                "53(12)",
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              )),
+          new Container(
+              child: Text(
+            "Charith Asalanka",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+          new Container(
+              child: Text(
+            "53(12)",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+        ],
+      ),
+    );
 
+    final batsmanDetails = new Container(
+      alignment: Alignment(1.0, 0.0),
+      margin: EdgeInsets.only(left: 30.0, right: 10.0),
+      child: Column(
+        children: <Widget>[
+          new Container(
+              child: Text(
+            "Charith Asalanka*",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+          new Container(
+              margin: EdgeInsets.only(bottom: 10.0),
+              child: Text(
+                "53(12)",
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              )),
+          new Container(
+              child: Text(
+            "Charith Asalanka",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+          new Container(
+              child: Text(
+            "53(12)",
+            style: TextStyle(fontSize: 14.0, color: Colors.white),
+          )),
+        ],
+      ),
+    );
 
+    //Batsman and Bowler Wrapper
+    final batsmanandbowler = new Row(
+      children: <Widget>[bowlerDetails, batsmanDetails],
+    );
 
+    //Line seperator
+    final lineSeperator = new Container(
+      margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 5.0),
+      height: 2.0,
+      color: Color(0xFFBCB8B8),
+    );
 
+    //StatusBar
+    final statusBar = new Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+      child: Text("Richmond College Won the toss and elected to bat first",
+          style: TextStyle(fontSize: 12.0, color: Colors.white)),
+    );
 
-
-
-
-
-
-
-
-
+    //YouTube FAB
+    /*
+    final youtubeBtn = new FloatingActionButton(
+        elevation: 0.0,
+        child: new Icon(Icons.check),
+        backgroundColor: Colors.red,
+        onPressed: (){}
+    );
+    */
 
     //Main Container
     final mainContainer = new Container(
-      height: 437.0,
+      //height: 437.0,
       width: 348.0,
       margin: new EdgeInsets.all(13.0),
+      padding: EdgeInsets.all(5.0),
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
           colors: [
@@ -222,7 +318,7 @@ class _LivescoreState extends State<livescores> {
       child: new ListView(
         shrinkWrap: true,
         children: <Widget>[
-          livestatus,
+          //livestatus,
           crest,
           score,
           overs,
@@ -230,7 +326,33 @@ class _LivescoreState extends State<livescores> {
           scoreballsSet,
           extrasTitle,
           extrasSet,
-          totalextras
+          totalextras,
+        ],
+      ),
+    );
+
+    final bottomContainer = new Container(
+      height: 253.0,
+      width: 348.0,
+      margin: new EdgeInsets.all(13.0),
+      decoration: new BoxDecoration(
+        gradient: new LinearGradient(
+          colors: [
+            const Color(0xFFA220FF).withOpacity(0.32),
+            const Color(0xFFE207D7).withOpacity(0.34)
+          ],
+          begin: FractionalOffset.bottomLeft,
+          end: FractionalOffset.topRight,
+        ),
+        borderRadius: new BorderRadius.all(Radius.circular(35.0)),
+      ),
+      child: ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          bottomTitleSection,
+          batsmanandbowler,
+          lineSeperator,
+          statusBar
         ],
       ),
     );
@@ -242,10 +364,27 @@ class _LivescoreState extends State<livescores> {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[title, mainContainer],
+            children: <Widget>[title, mainContainer, bottomContainer],
           ),
         ),
       ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFFE207D7).withOpacity(0.7),
+        onPressed: _launchURL,
+        tooltip: 'Live Stream',
+        child: Icon(Icons.live_tv),
+        elevation: 2.0,
+      ),
     );
+  }
+}
+
+_launchURL() async {
+  const url = 'https://www.youtube.com/watch?v=vWfjlIMiqBg';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch live stream! Check Your connection!';
   }
 }
