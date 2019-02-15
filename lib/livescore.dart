@@ -25,22 +25,6 @@ class _LivescoreState extends State<livescores> {
               fontSize: 24.0, fontFamily: "Montserrat", color: Colors.white)),
     );
 
-    //Live Status
-    final livestatus = new Transform(
-      transform: new Matrix4.identity()..scale(0.8),
-      alignment: Alignment(0.0, 0.0),
-      child: new Chip(
-        padding: EdgeInsets.only(top: 0.0, bottom: 0.0),
-        backgroundColor: Color(0xFFF31046),
-        label: Text("• LIVE",
-            style: TextStyle(
-                fontSize: 9.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-            textAlign: TextAlign.center),
-      ),
-    );
-
     //Logo
     final crest = new Center(
       child: Image(
@@ -180,6 +164,7 @@ class _LivescoreState extends State<livescores> {
     //Batsman and Bowler details
     final bottomTitleSection = new Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new Container(
             child: Image(
@@ -271,6 +256,7 @@ class _LivescoreState extends State<livescores> {
 
     //Batsman and Bowler Wrapper
     final batsmanandbowler = new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[bowlerDetails, batsmanDetails],
     );
 
@@ -356,6 +342,7 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
+
     return new Scaffold(
       body: Center(
         child: Container(
@@ -363,7 +350,7 @@ class _LivescoreState extends State<livescores> {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[title, mainContainer, bottomContainer],
+            children: <Widget>[title, mainContainer,bottomContainer],
           ),
         ),
       ),

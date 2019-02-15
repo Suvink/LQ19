@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         primarySwatch: backgroundColor,
       ),
-      home: highlights(),
+      home: livescores(),
     );
   }
 }
