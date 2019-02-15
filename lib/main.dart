@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'livescore.dart';
 import 'teamRcg.dart';
 import 'teamMcg.dart';
+import 'highlights.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         primarySwatch: backgroundColor,
       ),
-      home: teamRcgs(),
+      home: highlights(),
     );
   }
 }
