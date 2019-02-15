@@ -14,6 +14,12 @@ class _teamRcgState extends State<teamRcgs> {
 
   @override
   Widget build(BuildContext context) {
+
+    //Viewport Map
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+
+
     //Title
     final title = new Container(
       alignment: Alignment(0.0, 0.0),
@@ -41,7 +47,7 @@ class _teamRcgState extends State<teamRcgs> {
       alignment: Alignment(0.0, 0.0),
       child: new Text("First XI Cricket Team",
           style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 24.0,
               fontFamily: "Montserrat",
               color: Color(0xFFFFFFFF))),
     );
@@ -96,7 +102,10 @@ class _teamRcgState extends State<teamRcgs> {
 
     //Main Container
     final mainContainer = new Container(
+      //transform: new Matrix4.identity()..scale(MediaQuery.of(context).devicePixelRatio),
+      alignment: Alignment(0.0, 0.0),
       width: 348.0,
+      height: deviceHeight * 0.85,
       margin: new EdgeInsets.all(13.0),
       padding: EdgeInsets.all(5.0),
       decoration: new BoxDecoration(

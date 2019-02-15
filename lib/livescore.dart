@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shimmer/shimmer.dart';
 
 class livescores extends StatefulWidget {
   @override
@@ -24,6 +25,15 @@ class _LivescoreState extends State<livescores> {
           style: TextStyle(
               fontSize: 24.0, fontFamily: "Montserrat", color: Colors.white)),
     );
+
+/*
+    final bla = new Shimmer.fromColors(
+        child: new Text("Hello asdma csfn fkjawfmak fwfmw"),
+        baseColor: Colors.white,
+        highlightColor: Colors.grey,
+        direction: ShimmerDirection.ltr,
+    );
+*/
 
     //Logo
     final crest = new Center(
@@ -174,10 +184,11 @@ class _LivescoreState extends State<livescores> {
             ),
           ),
           new Container(
-              child: Text(
-            "Bowling",
-            style: TextStyle(fontSize: 24.0, color: Colors.white),
-          )),
+              child: new Shimmer.fromColors(
+                  child: Text("Bowling", style: TextStyle(fontSize: 24.0),),
+                  baseColor: Colors.white,
+                  highlightColor: Colors.grey)
+          ),
           SizedBox(width: 25.0),
           new Container(
             child: Image(
@@ -303,7 +314,7 @@ class _LivescoreState extends State<livescores> {
       child: new ListView(
         shrinkWrap: true,
         children: <Widget>[
-          //livestatus,
+          //bla,
           crest,
           score,
           overs,
