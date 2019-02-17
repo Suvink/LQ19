@@ -185,23 +185,35 @@ class _LivescoreState extends State<livescores> {
           ),
           new Container(
               child: new Shimmer.fromColors(
-                  child: Text("Bowling", style: TextStyle(fontSize: 24.0),),
+                  child: Text(
+                    "Bowling",
+                    style: TextStyle(fontSize: 24.0),
+                  ),
                   baseColor: Colors.white,
-                  highlightColor: Colors.grey)
-          ),
+                  highlightColor: Colors.grey)),
           SizedBox(width: 25.0),
           new Container(
+              child: Shimmer(
             child: Image(
               image: AssetImage("./assets/batsman.png"),
               height: 94.0,
               width: 53.0,
             ),
-          ),
-          new Container(
-              child: Text(
-            "Batting",
-            style: TextStyle(fontSize: 24.0, color: Colors.white),
+            gradient: new LinearGradient(
+              colors: [const Color(0xFFA220FF), const Color(0xFFE207D7)],
+              begin: FractionalOffset.bottomLeft,
+              end: FractionalOffset.topRight,
+            ),
+            direction: ShimmerDirection.ttb,
           )),
+          new Container(
+              child: new Shimmer.fromColors(
+                  child: Text(
+                    "Batting",
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                  baseColor: Colors.white,
+                  highlightColor: Colors.grey)),
         ],
       ),
     );
@@ -281,8 +293,10 @@ class _LivescoreState extends State<livescores> {
     //StatusBar
     final statusBar = new Container(
       margin: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: Text("Richmond College Won the toss and elected to bat first",
-          style: TextStyle(fontSize: 12.0, color: Colors.white)),
+        child: new Shimmer.fromColors(
+            child: Text("Richmond College won the toss and elected to bat first", style: TextStyle(fontSize: 12.0),),
+            baseColor: Colors.white,
+            highlightColor: Colors.grey)
     );
 
     //YouTube FAB
@@ -353,7 +367,6 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
-
     return new Scaffold(
       body: Center(
         child: Container(
@@ -361,7 +374,7 @@ class _LivescoreState extends State<livescores> {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[title, mainContainer,bottomContainer],
+            children: <Widget>[title, mainContainer, bottomContainer],
           ),
         ),
       ),

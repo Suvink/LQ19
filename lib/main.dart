@@ -9,7 +9,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  //Define the backfround colour for the app : Blue
+  //Define the background colour for the app : Blue
   MaterialColor backgroundColor = MaterialColor(0xFF0F0755, <int, Color>{
     50: Color(0xFFA4A4BF),
     100: Color(0xFFA4A4BF),
@@ -70,3 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+
