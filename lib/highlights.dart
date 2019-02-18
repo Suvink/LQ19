@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'livescore.dart';
 
 class highlights extends StatefulWidget {
   @override
@@ -74,33 +75,36 @@ class _highlightsState extends State<highlights> {
     );
 
     //Main Container
-    final mainContainer = new Container(
-      width: 348.0,
-      margin: new EdgeInsets.all(13.0),
-      padding: EdgeInsets.all(5.0),
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(
-          colors: [
-            const Color(0xFFA220FF).withOpacity(0.22),
-            const Color(0xFFE207D7).withOpacity(0.24)
-          ],
-          begin: FractionalOffset.bottomLeft,
-          end: FractionalOffset.topRight,
+    final mainContainer = new GestureDetector(
+      //onVerticalDragEnd: Navigator.push(context, MaterialPageRoute(builder: (context) => livescores())),
+      child: new Container(
+        width: 348.0,
+        margin: new EdgeInsets.all(13.0),
+        padding: EdgeInsets.all(5.0),
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+            colors: [
+              const Color(0xFFA220FF).withOpacity(0.22),
+              const Color(0xFFE207D7).withOpacity(0.24)
+            ],
+            begin: FractionalOffset.bottomLeft,
+            end: FractionalOffset.topRight,
+          ),
+          borderRadius: new BorderRadius.all(Radius.circular(35.0)),
         ),
-        borderRadius: new BorderRadius.all(Radius.circular(35.0)),
-      ),
-      child: new ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          dayTitle,
-          pitchReportTitle,
-          pitchReport,
-          lineSeperator,
-          dayTitle,
-          pitchReportTitle,
-          pitchReport,
-          lineSeperator
-        ],
+        child: new ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            dayTitle,
+            pitchReportTitle,
+            pitchReport,
+            lineSeperator,
+            dayTitle,
+            pitchReportTitle,
+            pitchReport,
+            lineSeperator
+          ],
+        ),
       ),
     );
 

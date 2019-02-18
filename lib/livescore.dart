@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
+import 'highlights.dart';
 
 class livescores extends StatefulWidget {
   @override
@@ -283,7 +284,7 @@ class _LivescoreState extends State<livescores> {
       children: <Widget>[bowlerDetails, batsmanDetails],
     );
 
-    //Line seperator
+    //Line separator
     final lineSeperator = new Container(
       margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 5.0),
       height: 2.0,
@@ -292,52 +293,50 @@ class _LivescoreState extends State<livescores> {
 
     //StatusBar
     final statusBar = new Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+        margin: EdgeInsets.only(left: 10.0, right: 10.0),
         child: new Shimmer.fromColors(
-            child: Text("Richmond College won the toss and elected to bat first", style: TextStyle(fontSize: 12.0),),
+            child: Text(
+              "Richmond College won the toss and elected to bat first",
+              style: TextStyle(fontSize: 12.0),
+            ),
             baseColor: Colors.white,
-            highlightColor: Colors.grey)
-    );
-
-    //YouTube FAB
-    /*
-    final youtubeBtn = new FloatingActionButton(
-        elevation: 0.0,
-        child: new Icon(Icons.check),
-        backgroundColor: Colors.red,
-        onPressed: (){}
-    );
-    */
+            highlightColor: Colors.grey));
 
     //Main Container
-    final mainContainer = new Container(
-      width: 348.0,
-      margin: new EdgeInsets.all(13.0),
-      padding: EdgeInsets.all(5.0),
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(
-          colors: [
-            const Color(0xFFA220FF).withOpacity(0.22),
-            const Color(0xFFE207D7).withOpacity(0.24)
-          ],
-          begin: FractionalOffset.bottomLeft,
-          end: FractionalOffset.topRight,
+    final mainContainer = new GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => highlights()));
+      },
+      child: new Container(
+        width: 348.0,
+        margin: new EdgeInsets.all(13.0),
+        padding: EdgeInsets.all(5.0),
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+            colors: [
+              const Color(0xFFA220FF).withOpacity(0.22),
+              const Color(0xFFE207D7).withOpacity(0.24)
+            ],
+            begin: FractionalOffset.bottomLeft,
+            end: FractionalOffset.topRight,
+          ),
+          borderRadius: new BorderRadius.all(Radius.circular(35.0)),
         ),
-        borderRadius: new BorderRadius.all(Radius.circular(35.0)),
-      ),
-      child: new ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          //bla,
-          crest,
-          score,
-          overs,
-          thisOverTitle,
-          scoreballsSet,
-          extrasTitle,
-          extrasSet,
-          totalextras,
-        ],
+        child: new ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            //bla,
+            crest,
+            score,
+            overs,
+            thisOverTitle,
+            scoreballsSet,
+            extrasTitle,
+            extrasSet,
+            totalextras,
+          ],
+        ),
       ),
     );
 
