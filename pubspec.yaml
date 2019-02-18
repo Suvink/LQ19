@@ -20,6 +20,7 @@ dependencies:
   shimmer: ^1.0.0
   firebase_core: ^0.2.5
   firebase_messaging: ^3.0.1
+  http: 0.12.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -39,7 +40,7 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
+    uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -72,14 +73,14 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
 
-  fonts:
-     - family: Montserrat
-       fonts:
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Bold.ttf
-  assets:
-    - assets/crest_rcg.png
-    - assets/crest_mcg.jpg
-    - assets/batsman.png
-    - assets/Bowler.png
-    - assets/player.png
+    fonts:
+       - family: Montserrat
+         fonts:
+          - asset: fonts/Montserrat-Regular.ttf
+          - asset: fonts/Montserrat-Bold.ttf
+    assets:
+      - assets/crest_rcg.png
+      - assets/crest_mcg.png
+      - assets/batsman.png
+      - assets/Bowler.png
+      - assets/player.png
