@@ -5,6 +5,7 @@ import 'highlights.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class livescores extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class livescores extends StatefulWidget {
 }
 
 class _LivescoreState extends State<livescores> {
-
   final String url = "https://api.myjson.com/bins/173mx6";
   var jsonCrest;
   var jsonScore;
@@ -32,7 +32,6 @@ class _LivescoreState extends State<livescores> {
   var jsonBatsmanTwoScore;
   var jsonBowlerScore;
 
-
   @override
   void initState() {
     super.initState();
@@ -40,7 +39,8 @@ class _LivescoreState extends State<livescores> {
   }
 
   Future<String> getJsonData() async {
-    http.Response response = await http.get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+    http.Response response = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
 
     var data = jsonDecode(response.body);
 
@@ -48,36 +48,33 @@ class _LivescoreState extends State<livescores> {
       //jsonState = data['setState'];
       jsonStatus = data['string'];
       jsonScore = data['score'];
-      jsonOvers =data['overs'].toString() + " Overs";
+      jsonOvers = data['overs'].toString() + " Overs";
       jsonBattingTeam = data['battingTeam'];
 
-      if (jsonBattingTeam == "RICHMOND"){
+      if (jsonBattingTeam == "RICHMOND") {
         jsonCrest = "assets/crest_rcg.png";
-      } else{
+      } else {
         jsonCrest = "assets/crest_mcg.png";
       }
 
       //Batsman and Bowlers details
-      jsonBatsmanOne = data['batsmanOne']['name'].toString()  + "*" ;
+      jsonBatsmanOne = data['batsmanOne']['name'].toString() + "*";
       jsonBatsmanOneScore = data['batsmanOne']['runs'].toString();
-      jsonBatsmanTwo = data['batsmanTwo']['name'].toString() ;
+      jsonBatsmanTwo = data['batsmanTwo']['name'].toString();
       jsonBatsmanTwoScore = data['batsmanTwo']['runs'].toString();
       jsonBowler = data['bowlerOne']['name'].toString();
       jsonBowlerScore = data['bowlerOne']['figures'].toString();
 
-
       jsonRunrate = data['runRate'];
-      jsonTotalExtras = data['extras']['totalExtras'].toString() + "\nTotal Extras";
+      jsonTotalExtras =
+          data['extras']['totalExtras'].toString() + "\nTotal Extras";
       jsonNoBalls = data['extras']['noBalls'].toString() + "\nNo Balls";
       jsonWides = data['extras']['wides'].toString() + "\nWides";
       jsonLegByes = data['extras']['legByes'].toString() + "\nLeg Byes";
-
-
     });
 
     print(jsonState.toString());
     print(jsonStatus.toString());
-
   }
 
   @override
@@ -88,22 +85,54 @@ class _LivescoreState extends State<livescores> {
       margin: new EdgeInsets.only(
         top: 5.0,
       ),
-      child: new Text("Richmond Live",
+      child: new AutoSizeText("Richmond Live",
           style: TextStyle(
               fontSize: 24.0, fontFamily: "Montserrat", color: Colors.white)),
     );
 
 /*
     final bla = new Shimmer.fromColors(
-        child: new Text("Hello asdma csfn fkjawfmak fwfmw"),
+        child: new AutoSizeText("Hello asdma csfn fkjawfmak fwfmw"),
         baseColor: Colors.white,
         highlightColor: Colors.grey,
         direction: ShimmerDirection.ltr,
     );
-*/
+    */
+    _showInstructions() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            elevation: 2.0,
+            title: new AutoSizeText("Instructions",maxLines: 1,textAlign: TextAlign.center,),
+            content: new Text("1. Tap on the top card for the highlights and pitch report\n\n2. Swipe from left or right for school teams."),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    //Instructions Button
+    final btnhelp = new IconButton(
+      alignment: Alignment.topRight,
+      icon: Icon(Icons.menu),
+      onPressed: _showInstructions,
+      iconSize: 30.0,
+      tooltip: "Instructions",
+    );
 
     //Logo
-    final crest = new Center(
+    final crestImage = new Center(
       child: Image(
         image: AssetImage(jsonCrest.toString()),
         height: 79.0,
@@ -111,13 +140,23 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
+    final crest = new Stack(
+      children: <Widget>[
+        btnhelp,
+        crestImage
+      ],
+    );
+
     //Main Score
     final score = Container(
       margin: EdgeInsets.only(bottom: 0.0),
       padding: EdgeInsets.only(bottom: 0.0),
       alignment: Alignment(0.0, 0.0),
-      child:
-          Text(jsonScore.toString(), style: TextStyle(fontSize: 72.0, color: Colors.white)),
+      child: AutoSizeText(
+        jsonScore.toString(),
+        style: TextStyle(fontSize: 72.0, color: Color(0xFF404040)),
+        maxLines: 1,
+      ),
     );
 
     //Overs count
@@ -125,16 +164,20 @@ class _LivescoreState extends State<livescores> {
       padding: EdgeInsets.only(bottom: 0.0),
       margin: EdgeInsets.only(top: 0.0),
       alignment: Alignment(0.0, 0.0),
-      child: Text(jsonOvers.toString(),
-          style: TextStyle(fontSize: 24.0, color: Color(0xFFB4B4B4))),
+      child: AutoSizeText(
+        jsonOvers.toString(),
+        style: TextStyle(fontSize: 24.0, color: Color(0xFF404040)),
+        maxLines: 1,
+      ),
     );
 
     //This Over Title
     final thisOverTitle = new Container(
       alignment: Alignment(0.0, 0.0),
-      child: Text(
+      child: AutoSizeText(
         "This Over",
-        style: TextStyle(fontSize: 14.0, color: Colors.white),
+        style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
+        maxLines: 1,
       ),
     );
 
@@ -147,17 +190,18 @@ class _LivescoreState extends State<livescores> {
         shape: BoxShape.circle,
         gradient: new LinearGradient(
           colors: [
-            const Color(0xFFA220FF).withOpacity(1.0),
-            const Color(0xFFE207D7).withOpacity(1.0)
+            const Color(0xFF9b418f).withOpacity(1.0),
+            const Color(0xFF300e57).withOpacity(1.0)
           ],
           begin: FractionalOffset.bottomLeft,
           end: FractionalOffset.topRight,
         ),
       ),
-      child: new Text(
+      child: new AutoSizeText(
         "1",
         style: TextStyle(fontSize: 13.0, color: Colors.white),
         textAlign: TextAlign.center,
+        maxLines: 1,
       ),
     );
 
@@ -182,9 +226,9 @@ class _LivescoreState extends State<livescores> {
     final extrasTitle = new Container(
       margin: EdgeInsets.only(top: 5.0),
       alignment: Alignment(0.0, 0.0),
-      child: Text(
+      child: AutoSizeText(
         "Extras",
-        style: TextStyle(fontSize: 14.0, color: Colors.white),
+        style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
       ),
     );
 
@@ -211,28 +255,32 @@ class _LivescoreState extends State<livescores> {
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         children: <Widget>[
-          Text(
+          AutoSizeText(
             jsonTotalExtras.toString(),
-            style: TextStyle(fontSize: 14.0, color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
             textAlign: TextAlign.center,
+            maxLines: 2,
           ),
           SizedBox(width: 15.0),
-          Text(
+          AutoSizeText(
             jsonWides.toString(),
-            style: TextStyle(fontSize: 14.0, color: Colors.white),
+            maxLines: 2,
+            style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
             textAlign: TextAlign.center,
           ),
           SizedBox(width: 15.0),
-          Text(
+          AutoSizeText(
             jsonNoBalls.toString(),
-            style: TextStyle(fontSize: 14.0, color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
             textAlign: TextAlign.center,
+            maxLines: 2,
           ),
           SizedBox(width: 15.0),
-          Text(
+          AutoSizeText(
             jsonLegByes.toString(),
-            style: TextStyle(fontSize: 14.0, color: Colors.white),
+            style: TextStyle(fontSize: 14.0, color: Color(0xFF404040)),
             textAlign: TextAlign.center,
+            maxLines: 2,
           )
         ],
       ),
@@ -252,34 +300,30 @@ class _LivescoreState extends State<livescores> {
           ),
           new Container(
               child: new Shimmer.fromColors(
-                  child: Text(
-                    "Batting",
-                    style: TextStyle(fontSize: 24.0),
+                  child: FittedBox(
+                    child: AutoSizeText(
+                      "Batting",
+                      style: TextStyle(fontSize: 24.0),
+                      maxLines: 1,
+                    ),
                   ),
-                  baseColor: Colors.white,
+                  baseColor: Color(0xFF404040),
                   highlightColor: Colors.grey)),
           SizedBox(width: 25.0),
           new Container(
-              child: Shimmer(
-            child: Image(
-              image: AssetImage("./assets/Bowler.png"),
-              height: 94.0,
-              width: 53.0,
-            ),
-            gradient: new LinearGradient(
-              colors: [const Color(0xFFA220FF), const Color(0xFFE207D7)],
-              begin: FractionalOffset.bottomLeft,
-              end: FractionalOffset.topRight,
-            ),
-            direction: ShimmerDirection.ttb,
+              child: Image(
+            image: AssetImage("./assets/Bowler.png"),
+            height: 94.0,
+            width: 53.0,
           )),
-          new Container(
+          new FittedBox(
               child: new Shimmer.fromColors(
-                  child: Text(
+                  child: AutoSizeText(
                     "Bowling",
                     style: TextStyle(fontSize: 24.0),
+                    maxLines: 1,
                   ),
-                  baseColor: Colors.white,
+                  baseColor: Color(0xFF404040),
                   highlightColor: Colors.grey)),
         ],
       ),
@@ -290,25 +334,29 @@ class _LivescoreState extends State<livescores> {
       child: Column(
         children: <Widget>[
           new Container(
-              child: Text(
+              child: AutoSizeText(
             jsonBatsmanOne.toString(),
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
           new Container(
               margin: EdgeInsets.only(bottom: 10.0),
-              child: Text(
+              child: AutoSizeText(
                 jsonBatsmanOneScore.toString(),
-                style: TextStyle(fontSize: 12.0, color: Colors.white),
+                style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+                maxLines: 1,
               )),
           new Container(
-              child: Text(
+              child: AutoSizeText(
             jsonBatsmanTwo.toString(),
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
           new Container(
-              child: Text(
+              child: AutoSizeText(
             jsonBatsmanTwoScore.toString(),
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
         ],
       ),
@@ -320,25 +368,29 @@ class _LivescoreState extends State<livescores> {
       child: Column(
         children: <Widget>[
           new Container(
-              child: Text(
+              child: AutoSizeText(
             jsonBowler.toString(),
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
           new Container(
               margin: EdgeInsets.only(bottom: 10.0),
-              child: Text(
+              child: AutoSizeText(
                 jsonBowlerScore.toString(),
-                style: TextStyle(fontSize: 12.0, color: Colors.white),
+                style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+                maxLines: 1,
               )),
           new Container(
-              child: Text(
+              child: AutoSizeText(
             "Run Rate",
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
           new Container(
-              child: Text(
+              child: AutoSizeText(
             jsonRunrate.toString(),
-            style: TextStyle(fontSize: 12.0, color: Colors.white),
+            style: TextStyle(fontSize: 12.0, color: Color(0xFF404040)),
+            maxLines: 1,
           )),
         ],
       ),
@@ -359,13 +411,14 @@ class _LivescoreState extends State<livescores> {
 
     //StatusBar
     final statusBar = new Container(
-        margin: EdgeInsets.only(left: 10.0, right: 10.0),
+        margin: EdgeInsets.only(left: 15.0, right: 10.0,bottom: 15.0),
         child: new Shimmer.fromColors(
-            child: Text(
+            child: AutoSizeText(
               jsonStatus.toString(),
+              maxLines: 1,
               style: TextStyle(fontSize: 12.0),
             ),
-            baseColor: Colors.white,
+            baseColor: Color(0xFF404040),
             highlightColor: Colors.grey));
 
     //Main Container
@@ -374,78 +427,88 @@ class _LivescoreState extends State<livescores> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => highlights()));
       },
-      child: new Container(
-        width: 348.0,
+      child: new FittedBox(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          margin: new EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(5.0),
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+              colors: [
+                const Color(0xFFFFFFFF).withOpacity(1.0),
+                const Color(0xFFFFFFFF).withOpacity(1.0)
+              ],
+              begin: FractionalOffset.bottomLeft,
+              end: FractionalOffset.topRight,
+            ),
+            borderRadius: new BorderRadius.all(Radius.circular(35.0)),
+          ),
+          child: new ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              //bla,
+              crest,
+              score,
+              overs,
+              thisOverTitle,
+              scoreballsSet,
+              extrasTitle,
+              extrasSet,
+              totalextras,
+            ],
+          ),
+        ),
+      ),
+    );
+
+
+
+
+
+
+
+    final bottomContainer = new FittedBox(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
         margin: new EdgeInsets.all(13.0),
-        padding: EdgeInsets.all(5.0),
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
             colors: [
-              const Color(0xFFA220FF).withOpacity(0.22),
-              const Color(0xFFE207D7).withOpacity(0.24)
+              const Color(0xFFFFFFFF).withOpacity(1.0),
+              const Color(0xFFFFFFFF).withOpacity(1.0)
             ],
             begin: FractionalOffset.bottomLeft,
             end: FractionalOffset.topRight,
           ),
           borderRadius: new BorderRadius.all(Radius.circular(35.0)),
         ),
-        child: new ListView(
+        child: ListView(
           shrinkWrap: true,
           children: <Widget>[
-            //bla,
-            crest,
-            score,
-            overs,
-            thisOverTitle,
-            scoreballsSet,
-            extrasTitle,
-            extrasSet,
-            totalextras,
+            bottomTitleSection,
+            batsmanandbowler,
+            lineSeperator,
+            statusBar
           ],
         ),
       ),
     );
 
-    final bottomContainer = new Container(
-      height: 253.0,
-      width: 348.0,
-      margin: new EdgeInsets.all(13.0),
-      decoration: new BoxDecoration(
-        gradient: new LinearGradient(
-          colors: [
-            const Color(0xFFA220FF).withOpacity(0.22),
-            const Color(0xFFE207D7).withOpacity(0.24)
-          ],
-          begin: FractionalOffset.bottomLeft,
-          end: FractionalOffset.topRight,
-        ),
-        borderRadius: new BorderRadius.all(Radius.circular(35.0)),
-      ),
-      child: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          bottomTitleSection,
-          batsmanandbowler,
-          lineSeperator,
-          statusBar
-        ],
-      ),
-    );
 
     return new Scaffold(
       body: Center(
         child: Container(
-          color: Color(0xFF0F0755),
+          color: Color(0xFF300e57),
           height: MediaQuery.of(context).size.height,
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[title, mainContainer, bottomContainer],
+            children: <Widget>[title,mainContainer, bottomContainer],
           ),
         ),
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFE207D7).withOpacity(0.7),
+        backgroundColor: Color(0xFF300e57).withOpacity(0.7),
         onPressed: _launchURL,
         tooltip: 'Live Stream',
         child: Icon(Icons.live_tv),
@@ -454,6 +517,8 @@ class _LivescoreState extends State<livescores> {
     );
   }
 }
+
+
 
 //Youtube launch function
 _launchURL() async {
@@ -464,3 +529,4 @@ _launchURL() async {
     throw 'Could not launch live stream! Check Your connection!';
   }
 }
+

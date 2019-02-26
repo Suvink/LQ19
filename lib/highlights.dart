@@ -16,7 +16,7 @@ class _highlightsState extends State<highlights> {
   Widget build(BuildContext context) {
     //Text Shader
     final Shader textShader = LinearGradient(
-      colors: <Color>[Color(0xFFA220FF), Color(0xFFE207D7)],
+      colors: <Color>[Color(0xFF404040), Color(0xFF404040)],
     ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
     //Title
@@ -38,7 +38,7 @@ class _highlightsState extends State<highlights> {
           style: TextStyle(
               fontSize: 14.0,
               fontFamily: "Montserrat",
-              color: Color(0xFFFFFFFF).withOpacity(0.8))),
+              color: Color(0xFF404040))),
     );
 
     //PitchReportTitle
@@ -62,7 +62,7 @@ class _highlightsState extends State<highlights> {
           style: TextStyle(
             fontSize: 13.0,
             fontFamily: "Montserrat",
-            color: Color(0xFFFFFFFF),
+            color: Color(0xFF404040),
           ),
           textAlign: TextAlign.justify,
         ));
@@ -71,7 +71,7 @@ class _highlightsState extends State<highlights> {
     final lineSeperator = new Container(
       margin: EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0, bottom: 20.0),
       height: 2.0,
-      color: Color(0xFFBCB8B8),
+      color: Color(0xFF404040),
     );
 
     //Main Container
@@ -84,8 +84,8 @@ class _highlightsState extends State<highlights> {
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
             colors: [
-              const Color(0xFFA220FF).withOpacity(0.22),
-              const Color(0xFFE207D7).withOpacity(0.24)
+              const Color(0xFFFFFFFF),
+              const Color(0xFFFFFFFF)
             ],
             begin: FractionalOffset.bottomLeft,
             end: FractionalOffset.topRight,
@@ -93,6 +93,7 @@ class _highlightsState extends State<highlights> {
           borderRadius: new BorderRadius.all(Radius.circular(35.0)),
         ),
         child: new ListView(
+          scrollDirection: Axis.vertical,
           shrinkWrap: true,
           children: <Widget>[
             dayTitle,
