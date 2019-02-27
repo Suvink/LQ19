@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'livescore.dart';
+import 'splash.dart';
 import 'teamRcg.dart';
 import 'teamMcg.dart';
 import 'highlights.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         primarySwatch: backgroundColor,
       ),
-      home: livescores(),
+      home: SplashScreen(),
     );
   }
 }

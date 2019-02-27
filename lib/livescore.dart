@@ -73,6 +73,7 @@ class _LivescoreState extends State<livescores> {
       jsonLegByes = data['extras']['legByes'].toString() + "\nLeg Byes";
     });
 
+
     print(jsonState.toString());
     print(jsonStatus.toString());
   }
@@ -84,6 +85,7 @@ class _LivescoreState extends State<livescores> {
       alignment: Alignment(0.0, 0.0),
       margin: new EdgeInsets.only(
         top: 5.0,
+        bottom: 10.0
       ),
       child: new AutoSizeText("Richmond Live",
           style: TextStyle(
@@ -411,7 +413,7 @@ class _LivescoreState extends State<livescores> {
 
     //StatusBar
     final statusBar = new Container(
-        margin: EdgeInsets.only(left: 15.0, right: 10.0,bottom: 15.0),
+        margin: EdgeInsets.only(left: 15.0, right: 10.0,bottom: 25.0),
         child: new Shimmer.fromColors(
             child: AutoSizeText(
               jsonStatus.toString(),
@@ -455,6 +457,10 @@ class _LivescoreState extends State<livescores> {
               extrasTitle,
               extrasSet,
               totalextras,
+              bottomTitleSection,
+              batsmanandbowler,
+              lineSeperator,
+              statusBar
             ],
           ),
         ),
@@ -502,7 +508,7 @@ class _LivescoreState extends State<livescores> {
           height: MediaQuery.of(context).size.height,
           child: ListView(
             shrinkWrap: true,
-            children: <Widget>[title,mainContainer, bottomContainer],
+            children: <Widget>[title,mainContainer],
           ),
         ),
       ),
