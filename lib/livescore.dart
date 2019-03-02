@@ -417,7 +417,7 @@ class _LivescoreState extends State<livescores> {
         child: new Shimmer.fromColors(
             child: AutoSizeText(
               jsonStatus.toString(),
-              maxLines: 1,
+              maxLines: 4,
               style: TextStyle(fontSize: 12.0),
             ),
             baseColor: Color(0xFF404040),
@@ -523,7 +523,6 @@ class _LivescoreState extends State<livescores> {
     );
   }
 }
-
 
 
 //Youtube launch function
