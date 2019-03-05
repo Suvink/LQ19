@@ -12,6 +12,43 @@ class livescores extends StatefulWidget {
   _LivescoreState createState() => _LivescoreState();
 }
 
+class scoreBall extends StatelessWidget {
+  const scoreBall({
+    Key key,
+    this.score,
+  }) : super(key: key);
+
+  final String score;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 5.0),
+      width: 26.0,
+      height: 26.0,
+      margin: EdgeInsets.only(left: 5.0),
+      decoration: new BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: new LinearGradient(
+          colors: [
+            const Color(0xFF9b418f).withOpacity(1.0),
+            const Color(0xFF300e57).withOpacity(1.0)
+          ],
+          begin: FractionalOffset.bottomLeft,
+          end: FractionalOffset.topRight,
+        ),
+      ),
+      child: new AutoSizeText(
+        score,
+        style: TextStyle(fontSize: 13.0, color: Colors.white),
+        textAlign: TextAlign.center,
+        maxLines: 1,
+      ),
+    );
+  }
+}
+
+
 class _LivescoreState extends State<livescores> {
   final String url = "https://api.myjson.com/bins/173mx6";
   var jsonCrest;
@@ -66,8 +103,7 @@ class _LivescoreState extends State<livescores> {
       jsonBowlerScore = data['bowlerOne']['figures'].toString();
 
       jsonRunrate = data['runRate'];
-      jsonTotalExtras =
-          data['extras']['totalExtras'].toString() + "\nTotal Extras";
+      jsonTotalExtras =data['extras']['totalExtras'].toString() + "\nTotal Extras";
       jsonNoBalls = data['extras']['noBalls'].toString() + "\nNo Balls";
       jsonWides = data['extras']['wides'].toString() + "\nWides";
       jsonLegByes = data['extras']['legByes'].toString() + "\nLeg Byes";
@@ -183,31 +219,6 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
-
-    final scoreball = new Container(
-      padding: EdgeInsets.only(top: 5.0),
-      width: 26.0,
-      height: 26.0,
-      margin: EdgeInsets.only(left: 5.0),
-      decoration: new BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: new LinearGradient(
-          colors: [
-            const Color(0xFF9b418f).withOpacity(1.0),
-            const Color(0xFF300e57).withOpacity(1.0)
-          ],
-          begin: FractionalOffset.bottomLeft,
-          end: FractionalOffset.topRight,
-        ),
-      ),
-      child: new AutoSizeText(
-        "1",
-        style: TextStyle(fontSize: 13.0, color: Colors.white),
-        textAlign: TextAlign.center,
-        maxLines: 1,
-      ),
-    );
-
     //Scoreballs Wrapper
     final scoreballsSet = new Container(
       alignment: Alignment(0.0, 0.0),
@@ -215,12 +226,12 @@ class _LivescoreState extends State<livescores> {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          scoreball,
-          scoreball,
-          scoreball,
-          scoreball,
-          scoreball,
-          scoreball
+          new scoreBall(score: "1"),
+          new scoreBall(score: "2"),
+          new scoreBall(score: "3"),
+          new scoreBall(score: "4"),
+          new scoreBall(score: "w"),
+          new scoreBall(score: "nb"),
         ],
       ),
     );
@@ -242,10 +253,10 @@ class _LivescoreState extends State<livescores> {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          scoreball,
-          scoreball,
-          scoreball,
-          scoreball,
+          new scoreBall(score: "lb"),
+          new scoreBall(score: "w"),
+          new scoreBall(score: "nb"),
+          new scoreBall(score: "w")
         ],
       ),
     );
