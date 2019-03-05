@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'livescore.dart';
-import 'splash.dart';
-import 'teamRcg.dart';
-import 'teamMcg.dart';
-import 'highlights.dart';
+import 'spl.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])

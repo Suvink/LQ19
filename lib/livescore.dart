@@ -183,6 +183,7 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
+
     final scoreball = new Container(
       padding: EdgeInsets.only(top: 5.0),
       width: 26.0,
@@ -466,12 +467,6 @@ class _LivescoreState extends State<livescores> {
         ),
       ),
     );
-
-
-
-
-
-
 
     final bottomContainer = new FittedBox(
       child: Container(

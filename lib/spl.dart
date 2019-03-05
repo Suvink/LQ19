@@ -1,24 +1,54 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'livescore.dart';
+import 'package:com.example.lq2019final/livescore.dart';
 
 class SplashScreen extends StatefulWidget {
+  static String splash = "splash";
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _SplashScreenState createState() => new _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _iconAnimationController;
+  CurvedAnimation _iconAnimation;
+
+  void handleTimeout() {
+
+    Navigator.of(context).pushReplacement(
+        new MaterialPageRoute(builder: (BuildContext context) => new livescores()));
+  }
+
+  startTimeout() async {
+
+    var duration = const Duration(seconds: 4);
+    return new Timer(duration, handleTimeout);
+
+  }
+  bool _visible = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    Timer(Duration(seconds: 5), () => Navigator.pop(context, MaterialPageRoute(builder: (context) => livescores())));
+    _iconAnimationController = new AnimationController(
+        vsync: this, duration: new Duration(milliseconds: 3000));
+
+    _iconAnimation = new CurvedAnimation(
+        parent: _iconAnimationController, curve: Curves.easeIn);
+    _iconAnimation.addListener(() => this.setState(() {}));
+
+    _iconAnimationController.forward();
+
+    startTimeout();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    return new Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
