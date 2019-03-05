@@ -48,9 +48,8 @@ class scoreBall extends StatelessWidget {
   }
 }
 
-
 class _LivescoreState extends State<livescores> {
-  final String url = "https://api.myjson.com/bins/173mx6";
+  final String url = "https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json";
   var jsonCrest;
   var jsonScore;
   var jsonOvers;
@@ -128,14 +127,6 @@ class _LivescoreState extends State<livescores> {
               fontSize: 24.0, fontFamily: "Montserrat", color: Colors.white)),
     );
 
-/*
-    final bla = new Shimmer.fromColors(
-        child: new AutoSizeText("Hello asdma csfn fkjawfmak fwfmw"),
-        baseColor: Colors.white,
-        highlightColor: Colors.grey,
-        direction: ShimmerDirection.ltr,
-    );
-    */
     _showInstructions() {
       // flutter defined function
       showDialog(
