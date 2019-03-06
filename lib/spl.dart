@@ -16,18 +16,17 @@ class _SplashScreenState extends State<SplashScreen>
   CurvedAnimation _iconAnimation;
 
   void handleTimeout() {
-
-    Navigator.of(context).pushReplacement(
-        new MaterialPageRoute(builder: (BuildContext context) => new livescores()));
+    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+        builder: (BuildContext context) => new livescores()));
   }
 
   startTimeout() async {
-
     var duration = const Duration(seconds: 4);
     return new Timer(duration, handleTimeout);
-
   }
+
   bool _visible = true;
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen>
     _iconAnimationController.forward();
 
     startTimeout();
-
   }
 
   @override
@@ -81,7 +79,9 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.white)),
+                    CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.white)),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                     ),
@@ -89,9 +89,7 @@ class _SplashScreenState extends State<SplashScreen>
                       "We are setting things up!",
                       softWrap: true,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white),
+                      style: TextStyle(fontSize: 14.0, color: Colors.white),
                     )
                   ],
                 ),

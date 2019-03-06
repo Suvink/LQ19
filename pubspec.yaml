@@ -27,8 +27,14 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -85,3 +91,4 @@ flutter:
       - assets/Bowler.png
       - assets/player.png
       - assets/live.png
+      - assets/p1.png

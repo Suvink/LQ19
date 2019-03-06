@@ -50,6 +50,8 @@ class scoreBall extends StatelessWidget {
 
 class _LivescoreState extends State<livescores> {
   final String url = "https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json";
+
+
   var jsonCrest;
   var jsonScore;
   var jsonOvers;
@@ -68,11 +70,13 @@ class _LivescoreState extends State<livescores> {
   var jsonBatsmanTwoScore;
   var jsonBowlerScore;
 
+
   @override
   void initState() {
     super.initState();
     this.getJsonData();
   }
+
 
   Future<String> getJsonData() async {
     http.Response response = await http
@@ -108,11 +112,20 @@ class _LivescoreState extends State<livescores> {
       jsonLegByes = data['extras']['legByes'].toString() + "\nLeg Byes";
     });
 
-
     print(jsonState.toString());
     print(jsonStatus.toString());
   }
 
+/*
+  Future<String> getJsonData() async {
+    http.Response response = await http
+        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+
+    setState(() {
+      var data = jsonDecode(response.body);
+    });
+  }
+*/
   @override
   Widget build(BuildContext context) {
     //Title
