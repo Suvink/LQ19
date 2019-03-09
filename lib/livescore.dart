@@ -98,7 +98,7 @@ class _LivescoreState extends State<livescores> {
       return Post.fromJson(json.decode(response.body));
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to connect our servers!');
+      throw Exception('Failed to connect out');
     }
   }
 
