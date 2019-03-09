@@ -11,22 +11,24 @@ class ScoreBall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 5.0),
-      width: 26.0,
-      height: 26.0,
-      margin: EdgeInsets.only(left: 5.0),
-      decoration: new BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: new LinearGradient(
-          colors: [
-            const Color(0xFF9b418f).withOpacity(1.0),
-            const Color(0xFF300e57).withOpacity(1.0)
-          ],
-          begin: FractionalOffset.bottomLeft,
-          end: FractionalOffset.topRight,
+        padding: EdgeInsets.only(top: 5.0),
+        width: 26.0,
+        height: 30.0,
+        margin: EdgeInsets.only(left: 5.0),
+        decoration: new BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: new LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment(0.8, 0.0),
+            colors: [
+              const Color.fromRGBO(226, 7, 7, 0.8),
+              const Color.fromRGBO(255, 52, 52, 0.74),
+            ],
+          ),
         ),
-      ),
-      child: Text(score),
-    );
+        child: Center(
+          child: Text(score,
+              style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1))),
+        ));
   }
 }
