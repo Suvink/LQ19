@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'highlights.dart';
@@ -36,9 +37,9 @@ class _LiveScoreState extends State<LiveScores> {
   int _legByes;
   bool _isLoading = true;
 
-  updateState() {
+  Future<Null> updateState() {
     // _isLoading = true;
-    http
+    return http
         .get(
             'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json')
         .then((http.Response response) {
@@ -103,7 +104,7 @@ class _LiveScoreState extends State<LiveScores> {
       margin: new EdgeInsets.only(top: 10.0),
       child: Text(
         "Richmond Live",
-        textScaleFactor: 2,
+        textScaleFactor: 1.5,
         style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
       ),
     );
@@ -402,11 +403,14 @@ class _LiveScoreState extends State<LiveScores> {
         child: summeryCard);
 
     return new Scaffold(
-      body: Center(
-        child: Container(
-          color: Color.fromRGBO(15, 7, 85, 1),
-          child: ListView(
-            children: <Widget>[title, mainContainer],
+      body: RefreshIndicator(
+        onRefresh: updateState,
+        child: Center(
+          child: Container(
+            color: Color.fromRGBO(15, 7, 85, 1),
+            child: ListView(
+              children: <Widget>[title, mainContainer],
+            ),
           ),
         ),
       ),
