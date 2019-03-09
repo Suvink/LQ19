@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:com.example.lq2019final/livescore.dart';
+import 'live_score.dart';
 
 class SplashScreen extends StatefulWidget {
   static String splash = "splash";
@@ -16,16 +15,14 @@ class _SplashScreenState extends State<SplashScreen>
   CurvedAnimation _iconAnimation;
 
   void handleTimeout() {
-    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-        builder: (BuildContext context) => new livescores()));
+    Navigator.of(context).pushReplacement(
+        new MaterialPageRoute(builder: (BuildContext context) => LiveScores()));
   }
 
   startTimeout() async {
     var duration = const Duration(seconds: 4);
     return new Timer(duration, handleTimeout);
   }
-
-  bool _visible = true;
 
   @override
   void initState() {
@@ -45,7 +42,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
     return new Scaffold(
       body: Stack(
         fit: StackFit.expand,

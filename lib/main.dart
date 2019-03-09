@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'spl.dart';
-import 'scorecard.dart';
+import 'live_score.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
         primarySwatch: backgroundColor,
       ),
-      home: SplashScreen(),
+      home: LiveScores(),
     );
   }
 }
@@ -74,6 +73,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'livescore.dart';
+import 'live_score.dart';
 
 class highlights extends StatefulWidget {
   @override
@@ -56,7 +56,7 @@ class _highlightsState extends State<highlights> {
     //PitchReport
     final pitchReport = new Container(
         alignment: Alignment(0.0, 0.0),
-        margin: EdgeInsets.only(top: 10.0,left: 5.0,right: 5.0),
+        margin: EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
         child: Text(
           "Groundsman Kevin Mitchell jnr said of the surface: “The pace holds together well and it can turn towards the end so everyone gets a chance. You can have a poor session and still get out of trouble which we saw a couple of Ashes series ago (when England drew ending a run of successive Australia wins at the GABBA).”Groundsman Kevin Mitchell jnr said of the surface: “The pace holds together well and it can turn towards the end so everyone gets a chance. You can have a poor session and still get out of trouble which we saw a couple of Ashes series ago (when England drew ending a run of successive Australia wins at the GABBA).",
           style: TextStyle(
@@ -83,10 +83,7 @@ class _highlightsState extends State<highlights> {
         padding: EdgeInsets.all(5.0),
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
-            colors: [
-              const Color(0xFFFFFFFF),
-              const Color(0xFFFFFFFF)
-            ],
+            colors: [const Color(0xFFFFFFFF), const Color(0xFFFFFFFF)],
             begin: FractionalOffset.bottomLeft,
             end: FractionalOffset.topRight,
           ),
