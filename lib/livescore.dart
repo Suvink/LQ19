@@ -48,28 +48,40 @@ class scoreBall extends StatelessWidget {
   }
 }
 
+class Post {
+  final String jsonCrest;
+  final String jsonScore;
+  final String jsonOvers;
+  final String jsonState;
+  final String jsonStatus;
+  final String jsonBatsmanOne;
+  final String jsonBatsmanTwo;
+  final String jsonBowler;
+  final String jsonRunrate;
+  final String jsonBattingTeam;
+  final String jsonTotalExtras;
+  final String jsonNoBalls;
+  final String jsonWides;
+  final String jsonLegByes;
+  final String jsonBatsmanOneScore;
+  final String jsonBatsmanTwoScore;
+  final String jsonBowlerScore;
+
+  Post({this.jsonCrest, this.jsonScore, this.jsonOvers, this.jsonState, this.jsonStatus, this.jsonBatsmanOne, this.jsonBatsmanTwo, this.jsonBowler, this.jsonRunrate, this.jsonBattingTeam,this.jsonTotalExtras,this.jsonBowlerScore,this.jsonBatsmanTwoScore,this.jsonBatsmanOneScore,this.jsonLegByes,this.jsonNoBalls,this.jsonWides});
+
+
+  factory Post.fromJson(Map<String, dynamic> json) {
+    return Post(
+      jsonScore: json['score'],
+      jsonStatus: json['string'],
+      //title: json['title'],
+      //body: json['body'],
+    );
+  }
+}
+
 class _LivescoreState extends State<livescores> {
   final String url = "https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json";
-
-
-  var jsonCrest;
-  var jsonScore;
-  var jsonOvers;
-  var jsonState;
-  var jsonStatus;
-  var jsonBatsmanOne;
-  var jsonBatsmanTwo;
-  var jsonBowler;
-  var jsonRunrate;
-  var jsonBattingTeam;
-  var jsonTotalExtras;
-  var jsonNoBalls;
-  var jsonWides;
-  var jsonLegByes;
-  var jsonBatsmanOneScore;
-  var jsonBatsmanTwoScore;
-  var jsonBowlerScore;
-
 
   @override
   void initState() {
@@ -77,55 +89,19 @@ class _LivescoreState extends State<livescores> {
     this.getJsonData();
   }
 
+  Future<Post> getJsonData() async {
+    final response =
+    await http.get(url);
 
-  Future<String> getJsonData() async {
-    http.Response response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-
-    var data = jsonDecode(response.body);
-
-    setState(() {
-      //jsonState = data['setState'];
-      jsonStatus = data['string'];
-      jsonScore = data['score'];
-      jsonOvers = data['overs'].toString() + " Overs";
-      jsonBattingTeam = data['battingTeam'];
-
-      if (jsonBattingTeam == "RICHMOND") {
-        jsonCrest = "assets/crest_rcg.png";
-      } else {
-        jsonCrest = "assets/crest_mcg.png";
-      }
-
-      //Batsman and Bowlers details
-      jsonBatsmanOne = data['batsmanOne']['name'].toString() + "*";
-      jsonBatsmanOneScore = data['batsmanOne']['runs'].toString();
-      jsonBatsmanTwo = data['batsmanTwo']['name'].toString();
-      jsonBatsmanTwoScore = data['batsmanTwo']['runs'].toString();
-      jsonBowler = data['bowlerOne']['name'].toString();
-      jsonBowlerScore = data['bowlerOne']['figures'].toString();
-
-      jsonRunrate = data['runRate'];
-      jsonTotalExtras =data['extras']['totalExtras'].toString() + "\nTotal Extras";
-      jsonNoBalls = data['extras']['noBalls'].toString() + "\nNo Balls";
-      jsonWides = data['extras']['wides'].toString() + "\nWides";
-      jsonLegByes = data['extras']['legByes'].toString() + "\nLeg Byes";
-    });
-
-    print(jsonState.toString());
-    print(jsonStatus.toString());
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON
+      return Post.fromJson(json.decode(response.body));
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to connect our servers!');
+    }
   }
 
-/*
-  Future<String> getJsonData() async {
-    http.Response response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-
-    setState(() {
-      var data = jsonDecode(response.body);
-    });
-  }
-*/
   @override
   Widget build(BuildContext context) {
     //Title
@@ -510,7 +486,6 @@ class _LivescoreState extends State<livescores> {
       ),
     );
 
-
     return new Scaffold(
       body: Center(
         child: Container(
@@ -533,7 +508,6 @@ class _LivescoreState extends State<livescores> {
     );
   }
 }
-
 
 //Youtube launch function
 _launchURL() async {
