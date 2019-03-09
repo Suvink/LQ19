@@ -41,26 +41,26 @@ class _LiveScoreState extends State<LiveScores> {
             'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json')
         .then((response) {
       Map<String, dynamic> data = json.decode(response.body);
-      setState(() {
-        _crest = data['crest'];
-        _score = data['score'];
-        _overs = data['overs'];
-        _status = data['string'];
-        _batsmanOne = data['batsmanOne']['name'];
-        _batsmanTwo = data['batsmanTwo']['name'];
-        _bowler = data['bowler']['name'];
-        _runrate = data['runRate'];
-        _battingTeam = data['battingTeam'];
-        _batsmanOneScore = data['batsmanOne']['runs'];
-        _batsmanTwoScore = data['batsmanTwo']['runs'];
-        _bowlerScore = data['bowler']['figures'];
-        _totalextras = data['extras']['totalExtras'];
-        _noBalls = data['extras']['noBalls'];
-        _wides = data['extras']['wides'];
-        _legByes = data['extras']['legByes'];
-        _lastWicket = data['lastWicket'];
-        _recentOver = data['recentOver'];
-      });
+      // print(data);
+      _crest = data['crest'];
+      _score = data['score'];
+      _overs = data['overs'];
+      _status = data['string'];
+      _batsmanOne = data['batsmanOne']['name'];
+      _batsmanTwo = data['batsmanTwo']['name'];
+      _bowler = data['bowler']['name'];
+      _runrate = data['runRate'];
+      _battingTeam = data['battingTeam'];
+      _batsmanOneScore = data['batsmanOne']['runs'];
+      _batsmanTwoScore = data['batsmanTwo']['runs'];
+      _bowlerScore = data['bowler']['figures'];
+      _totalextras = data['extras']['totalExtras'];
+      _noBalls = data['extras']['noBalls'];
+      _wides = data['extras']['wides'];
+      _legByes = data['extras']['legByes'];
+      _lastWicket = data['lastWicket'];
+      _recentOver = data['recentOver'][0];
+      _recentOverExtras = data['recentOver'][1];
     });
 
     //Title
@@ -71,13 +71,20 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Logo
-    final crestImage = new Center(
-      child: Image(
-        image: AssetImage(_crest),
-        height: 79.0,
-        width: 64.0,
-      ),
-    );
+    var crestImage;
+    if (_crest != null) {
+      crestImage = new Center(
+        child: Image(
+          image: AssetImage(_crest),
+          height: 79.0,
+          width: 64.0,
+        ),
+      );
+    } else {
+      crestImage = new Center(
+        child: Text(""),
+      );
+    }
 
     final crest = new Stack(
       children: <Widget>[crestImage],
@@ -105,7 +112,7 @@ class _LiveScoreState extends State<LiveScores> {
 
     // Create Ball List
     var thisOver = List<Widget>();
-    for (String ball in _recentOver) {
+    for (var ball in _recentOver) {
       thisOver.add(new ScoreBall(score: ball));
     }
 
@@ -126,7 +133,7 @@ class _LiveScoreState extends State<LiveScores> {
 
     // Create Extras List
     var extras = List<Widget>();
-    for (String ball in _recentOverExtras) {
+    for (var ball in _recentOverExtras) {
       extras.add(new ScoreBall(score: ball));
     }
 
