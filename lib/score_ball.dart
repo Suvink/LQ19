@@ -21,8 +21,8 @@ class ScoreBall extends StatelessWidget {
             begin: Alignment.bottomLeft,
             end: Alignment(0.8, 0.0),
             colors: [
-              const Color.fromRGBO(226, 7, 7, 0.8),
-              const Color.fromRGBO(255, 52, 52, 0.74),
+              const Color(0xFF300e57),
+              const Color(0xFF9b418f),
             ],
           ),
         ),

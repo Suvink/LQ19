@@ -15,7 +15,7 @@ class LiveScores extends StatefulWidget {
 
 class _LiveScoreState extends State<LiveScores> {
   String _streamURL =
-      'https://www.youtube.com/channel/UC66Y9YztiHjs3H-kX8_OKPg';
+      'https://www.youtube.com/watch?v=S9RlUXteNnw';
   String _crest;
   String _score;
   String _overs;
@@ -66,7 +66,7 @@ class _LiveScoreState extends State<LiveScores> {
           _recentOver = data['recentOver'][0];
           _recentOverExtras = data['recentOver'][1];
           _isLoading = false;
-          // _streamURL = data['steamURL'];
+           _streamURL = data['streamURL'];
         });
       }
     });
@@ -105,7 +105,7 @@ class _LiveScoreState extends State<LiveScores> {
       child: Text(
         "Richmond Live",
         textScaleFactor: 1.5,
-        style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        style: TextStyle(color: Color(0xFFFFFFFF)),
       ),
     );
 
@@ -130,7 +130,7 @@ class _LiveScoreState extends State<LiveScores> {
       child: Text(
         _score,
         textScaleFactor: 4,
-        style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        style: TextStyle(color: Color(0xFF404040)),
       ),
     );
 
@@ -142,7 +142,7 @@ class _LiveScoreState extends State<LiveScores> {
       child: Text(
         _overs + ' Overs',
         textScaleFactor: 2,
-        style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        style: TextStyle(color: Color(0xFF404040)),
       ),
     );
 
@@ -152,7 +152,7 @@ class _LiveScoreState extends State<LiveScores> {
         alignment: Alignment(0.0, 0.0),
         child: Text(
           'This Over',
-          style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+          style: TextStyle(color: Color(0xFF404040)),
         ));
 
     // Create Ball List
@@ -175,7 +175,7 @@ class _LiveScoreState extends State<LiveScores> {
       alignment: Alignment(0.0, 0.0),
       child: Text(
         'Extras',
-        style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+        style: TextStyle(color: Color(0xFF404040)),
       ),
     );
 
@@ -206,50 +206,53 @@ class _LiveScoreState extends State<LiveScores> {
               Text(
                 '$_totalextras',
                 textScaleFactor: 2,
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
               Text(
                 'Total Extras',
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
             ],
           ),
+          SizedBox(width: 10.0,),
           Column(
             children: <Widget>[
               Text(
                 '$_wides',
                 textScaleFactor: 2,
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
               Text(
                 'Wides',
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
             ],
           ),
+          SizedBox(width: 10.0,),
           Column(
             children: <Widget>[
               Text(
                 '$_noBalls',
                 textScaleFactor: 2,
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
               Text(
                 'No Balls',
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
             ],
           ),
+          SizedBox(width: 10.0,),
           Column(
             children: <Widget>[
               Text(
                 '$_legByes',
                 textScaleFactor: 2,
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
               Text(
                 'Leg Byes',
-                style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+                style: TextStyle(color: Color(0xFF404040)),
               ),
             ],
           ),
@@ -271,7 +274,8 @@ class _LiveScoreState extends State<LiveScores> {
           ),
           Text(
             'Batting',
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            textScaleFactor: 1.7,
+            style: TextStyle(color: Color(0xFF404040),),
           ),
           SizedBox(width: 25.0),
           new Container(
@@ -283,7 +287,8 @@ class _LiveScoreState extends State<LiveScores> {
           new FittedBox(
               child: Text(
             "Bowling",
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            textScaleFactor: 1.7,
+            style: TextStyle(color: Color(0xFF404040)),
           ))
         ],
       ),
@@ -295,19 +300,19 @@ class _LiveScoreState extends State<LiveScores> {
         children: <Widget>[
           Text(
             _batsmanOne,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
           Text(
             _batsmanOneScore,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
           Text(
             _batsmanTwo,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
           Text(
             _batsmanTwoScore,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
         ],
       ),
@@ -320,15 +325,19 @@ class _LiveScoreState extends State<LiveScores> {
         children: <Widget>[
           Text(
             _bowler,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
           Text(
             _bowlerScore,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
+          ),
+          Text(
+            'Run Rate',
+            style: TextStyle(color: Color(0xFF300e57)),
           ),
           Text(
             _runrate,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
         ],
       ),
@@ -353,7 +362,7 @@ class _LiveScoreState extends State<LiveScores> {
         child: Center(
           child: Text(
             _status,
-            style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
         ));
 
@@ -363,14 +372,7 @@ class _LiveScoreState extends State<LiveScores> {
         margin: new EdgeInsets.all(10.0),
         padding: EdgeInsets.all(5.0),
         decoration: new BoxDecoration(
-          gradient: new LinearGradient(
-            colors: [
-              const Color.fromRGBO(162, 32, 255, 0.2),
-              const Color.fromRGBO(226, 7, 215, 0.2),
-            ],
-            begin: FractionalOffset.bottomLeft,
-            end: FractionalOffset.topRight,
-          ),
+          color: Color(0xFFFFFFFF),
           borderRadius: new BorderRadius.all(Radius.circular(35.0)),
         ),
         child: new ListView(
@@ -415,7 +417,7 @@ class _LiveScoreState extends State<LiveScores> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF0000).withOpacity(0.7),
+        backgroundColor: Color(0xFF300e57).withOpacity(0.7),
         onPressed: _launchURL,
         tooltip: 'Live Stream',
         child: Icon(Icons.live_tv),
