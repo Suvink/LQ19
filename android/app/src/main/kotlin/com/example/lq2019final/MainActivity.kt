@@ -1,4 +1,4 @@
-package com.dev.lq2019final
+package com.iconicto.lq19
 
 import android.os.Bundle
 
