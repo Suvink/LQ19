@@ -19,12 +19,9 @@ class LiveScores extends StatefulWidget {
 }
 
 class _LiveScoreState extends State<LiveScores> {
-  String _scoreAPI =
-      'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json';
-  String _highlightsAPI =
-      'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/highlights.json';
-  String _streamURL =
-      'https://www.youtube.com/channel/UC66Y9YztiHjs3H-kX8_OKPg';
+  String _scoreAPI;
+  String _highlightsAPI;
+  String _streamURL;
   String _crest;
   String _score;
   String _overs;
@@ -33,7 +30,7 @@ class _LiveScoreState extends State<LiveScores> {
   String _batsmanTwo;
   String _bowler;
   String _runrate;
-  String _battingTeam;
+  // String _battingTeam;
   String _batsmanOneScore;
   String _batsmanTwoScore;
   String _bowlerScore;
@@ -47,57 +44,67 @@ class _LiveScoreState extends State<LiveScores> {
 
   // @override
   // void initState() {
-  //   // _scoreAPI = widget.initdata['scoreAPI'];
-  //   // _highlightsAPI = widget.initdata['highlightsAPI'];
-  //   // _streamURL = widget.initdata['streamURL'];
-  //   // _crest = widget.initdata['crest'];
-  //   // _score = widget.initdata['score'];
-  //   // _overs = widget.initdata['overs'];
-  //   // _status = widget.initdata['status'];
-  //   // _batsmanOne = widget.initdata['batsmanOne'];
-  //   // _batsmanTwo = widget.initdata['batsmanTwo'];
-  //   // _bowler = widget.initdata['bowler'];
-  //   // _runrate = widget.initdata['runrate'];
-  //   // _battingTeam = widget.initdata['battingTeam'];
-  //   // _batsmanOneScore = widget.initdata['batsmanOneScore'];
-  //   // _batsmanTwoScore = widget.initdata['batsmanTwoScore'];
-  //   // _bowlerScore = widget.initdata['bowlerScore'];
-  //   // _recentOver = widget.initdata['recentOver'];
-  //   // _recentOverExtras = widget.initdata['recentOverExtras'];
-  //   // _totalextras = widget.initdata['totalextras'];
-  //   // _noBalls = widget.initdata['noBalls'];
-  //   // _wides = widget.initdata['wides'];
-  //   // _legByes = widget.initdata['legByes'];
+  //   _scoreAPI = widget.initdata['scoreAPI'];
+  //   _highlightsAPI = widget.initdata['highlightsAPI'];
+  //   _streamURL = widget.initdata['streamURL'];
+  //   _crest = widget.initdata['crest'];
+  //   _score = widget.initdata['score'];
+  //   _overs = widget.initdata['overs'];
+  //   _status = widget.initdata['status'];
+  //   _batsmanOne = widget.initdata['batsmanOne'];
+  //   _batsmanTwo = widget.initdata['batsmanTwo'];
+  //   _bowler = widget.initdata['bowler'];
+  //   _runrate = widget.initdata['runrate'];
+  //   _battingTeam = widget.initdata['battingTeam'];
+  //   _batsmanOneScore = widget.initdata['batsmanOneScore'];
+  //   _batsmanTwoScore = widget.initdata['batsmanTwoScore'];
+  //   _bowlerScore = widget.initdata['bowlerScore'];
+  //   _recentOver = widget.initdata['recentOver'];
+  //   _recentOverExtras = widget.initdata['recentOverExtras'];
+  //   _totalextras = widget.initdata['totalextras'];
+  //   _noBalls = widget.initdata['noBalls'];
+  //   _wides = widget.initdata['wides'];
+  //   _legByes = widget.initdata['legByes'];
+
   //   super.initState();
   // }
 
   Future<Null> updateState() {
-    return http.get(_scoreAPI).then((http.Response response) {
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = json.decode(response.body);
-        setState(() {
-          _crest = data['crest'];
-          _score = data['score'];
-          _overs = data['overs'];
-          _status = data['string'];
-          _batsmanOne = data['batsmanOne']['name'];
-          _batsmanTwo = data['batsmanTwo']['name'];
-          _bowler = data['bowler']['name'];
-          _runrate = data['runRate'];
-          _battingTeam = data['battingTeam'];
-          _batsmanOneScore = data['batsmanOne']['runs'];
-          _batsmanTwoScore = data['batsmanTwo']['runs'];
-          _bowlerScore = data['bowler']['figures'];
-          _totalextras = data['extras']['totalExtras'];
-          _noBalls = data['extras']['noBalls'];
-          _wides = data['extras']['wides'];
-          _legByes = data['extras']['legByes'];
-          _recentOver = data['recentOver'][0];
-          _recentOverExtras = data['recentOver'][1];
-          _streamURL = data['streamURL'];
-          _isLoading = false;
-        });
-      }
+    return http
+        .get(
+            "https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/main.json")
+        .then((http.Response response) {
+      Map<String, dynamic> apis = json.decode(response.body);
+      _streamURL = apis['streamURL'];
+      _scoreAPI = apis['scoreAPI'];
+      _highlightsAPI = apis['highlightsAPI'];
+      http.get(_scoreAPI).then((http.Response response) {
+        if (response.statusCode == 200) {
+          Map<String, dynamic> data = json.decode(response.body);
+          setState(() {
+            _crest = data['crest'];
+            _score = data['score'];
+            _overs = data['overs'];
+            _status = data['string'];
+            _batsmanOne = data['batsmanOne']['name'];
+            _batsmanTwo = data['batsmanTwo']['name'];
+            _bowler = data['bowler']['name'];
+            _runrate = data['runRate'];
+            // _battingTeam = data['battingTeam'];
+            _batsmanOneScore = data['batsmanOne']['runs'];
+            _batsmanTwoScore = data['batsmanTwo']['runs'];
+            _bowlerScore = data['bowler']['figures'];
+            _totalextras = data['extras']['totalExtras'];
+            _noBalls = data['extras']['noBalls'];
+            _wides = data['extras']['wides'];
+            _legByes = data['extras']['legByes'];
+            _recentOver = data['recentOver'][0];
+            _recentOverExtras = data['recentOver'][1];
+            _streamURL = data['streamURL'];
+            _isLoading = false;
+          });
+        }
+      });
     });
   }
 
