@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'loading_screen.dart';
 import 'live_score.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
   //Define the background colour for the app : Blue
-  MaterialColor backgroundColor = MaterialColor(0xFF0F0755, <int, Color>{
+  final MaterialColor backgroundColor = MaterialColor(0xFF0F0755, <int, Color>{
     50: Color(0xFFA4A4BF),
     100: Color(0xFFA4A4BF),
     200: Color(0xFFA4A4BF),

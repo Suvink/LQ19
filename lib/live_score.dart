@@ -1,21 +1,30 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'highlights.dart';
 import 'score_ball.dart';
 import 'package:http/http.dart' as http;
+import 'dart:async';
 import 'dart:convert';
 
 class LiveScores extends StatefulWidget {
-  const LiveScores({Key key}) : super(key: key);
+  final Map<String, dynamic> initdata;
+
+  const LiveScores({
+    Key key,
+    this.initdata,
+  }) : super(key: key);
 
   @override
   _LiveScoreState createState() => _LiveScoreState();
 }
 
 class _LiveScoreState extends State<LiveScores> {
+  String _scoreAPI =
+      'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json';
+  String _highlightsAPI =
+      'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/highlights.json';
   String _streamURL =
-      'https://www.youtube.com/watch?v=S9RlUXteNnw';
+      'https://www.youtube.com/channel/UC66Y9YztiHjs3H-kX8_OKPg';
   String _crest;
   String _score;
   String _overs;
@@ -28,7 +37,6 @@ class _LiveScoreState extends State<LiveScores> {
   String _batsmanOneScore;
   String _batsmanTwoScore;
   String _bowlerScore;
-  String _lastWicket;
   List _recentOver;
   List _recentOverExtras;
   int _totalextras;
@@ -37,12 +45,34 @@ class _LiveScoreState extends State<LiveScores> {
   int _legByes;
   bool _isLoading = true;
 
+  // @override
+  // void initState() {
+  //   // _scoreAPI = widget.initdata['scoreAPI'];
+  //   // _highlightsAPI = widget.initdata['highlightsAPI'];
+  //   // _streamURL = widget.initdata['streamURL'];
+  //   // _crest = widget.initdata['crest'];
+  //   // _score = widget.initdata['score'];
+  //   // _overs = widget.initdata['overs'];
+  //   // _status = widget.initdata['status'];
+  //   // _batsmanOne = widget.initdata['batsmanOne'];
+  //   // _batsmanTwo = widget.initdata['batsmanTwo'];
+  //   // _bowler = widget.initdata['bowler'];
+  //   // _runrate = widget.initdata['runrate'];
+  //   // _battingTeam = widget.initdata['battingTeam'];
+  //   // _batsmanOneScore = widget.initdata['batsmanOneScore'];
+  //   // _batsmanTwoScore = widget.initdata['batsmanTwoScore'];
+  //   // _bowlerScore = widget.initdata['bowlerScore'];
+  //   // _recentOver = widget.initdata['recentOver'];
+  //   // _recentOverExtras = widget.initdata['recentOverExtras'];
+  //   // _totalextras = widget.initdata['totalextras'];
+  //   // _noBalls = widget.initdata['noBalls'];
+  //   // _wides = widget.initdata['wides'];
+  //   // _legByes = widget.initdata['legByes'];
+  //   super.initState();
+  // }
+
   Future<Null> updateState() {
-    // _isLoading = true;
-    return http
-        .get(
-            'https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/lq.json')
-        .then((http.Response response) {
+    return http.get(_scoreAPI).then((http.Response response) {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
         setState(() {
@@ -62,11 +92,10 @@ class _LiveScoreState extends State<LiveScores> {
           _noBalls = data['extras']['noBalls'];
           _wides = data['extras']['wides'];
           _legByes = data['extras']['legByes'];
-          _lastWicket = data['lastWicket'];
           _recentOver = data['recentOver'][0];
           _recentOverExtras = data['recentOver'][1];
+          _streamURL = data['streamURL'];
           _isLoading = false;
-           _streamURL = data['streamURL'];
         });
       }
     });
@@ -76,9 +105,10 @@ class _LiveScoreState extends State<LiveScores> {
   _launchURL() async {
     if (await canLaunch(_streamURL)) {
       await launch(_streamURL);
-    } else {
-      throw 'Could not launch live stream! Please check your connection!';
     }
+    // else {
+    //   throw 'Could not launch live stream! Please check your connection!';
+    // }
   }
 
   @override
@@ -97,11 +127,10 @@ class _LiveScoreState extends State<LiveScores> {
         ),
       );
     }
-
     //Title
-    final title = new Container(
+    final title = Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(top: 10.0),
+      margin: EdgeInsets.only(top: 10.0),
       child: Text(
         "Richmond Live",
         textScaleFactor: 1.5,
@@ -110,17 +139,13 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Logo
-    final crest = new Center(
+    final crest = Center(
       child: Image(
         image: AssetImage('assets/' + _crest),
         height: 79.0,
         width: 64.0,
       ),
     );
-
-    // final crest = new Stack(
-    //   children: <Widget>[crestImage],
-    // );
 
     //Main Score
     final score = Container(
@@ -147,7 +172,7 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //This Over Title
-    final thisOverTitle = new Container(
+    final thisOverTitle = Container(
         margin: const EdgeInsets.only(top: 15),
         alignment: Alignment(0.0, 0.0),
         child: Text(
@@ -162,15 +187,15 @@ class _LiveScoreState extends State<LiveScores> {
     }
 
     //Scoreballs Wrapper
-    final scoreballsSet = new Container(
+    final scoreballsSet = Container(
       alignment: Alignment(0.0, 0.0),
       margin: EdgeInsets.only(top: 7.0),
-      child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center, children: thisOver),
+      child:
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: thisOver),
     );
 
     //Extras Title
-    final extrasTitle = new Container(
+    final extrasTitle = Container(
       margin: EdgeInsets.only(top: 5.0),
       alignment: Alignment(0.0, 0.0),
       child: Text(
@@ -186,18 +211,17 @@ class _LiveScoreState extends State<LiveScores> {
     }
 
     //Extras Wrapper
-    final extrasSet = new Container(
+    final extrasSet = Container(
       alignment: Alignment(0.0, 0.0),
       margin: EdgeInsets.only(top: 7.0),
-      child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center, children: extras),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: extras),
     );
 
     final totalextras = Container(
       margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
       height: 60.2,
       alignment: Alignment(0.0, 0.0),
-      child: new ListView(
+      child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         children: <Widget>[
@@ -214,7 +238,9 @@ class _LiveScoreState extends State<LiveScores> {
               ),
             ],
           ),
-          SizedBox(width: 10.0,),
+          SizedBox(
+            width: 10.0,
+          ),
           Column(
             children: <Widget>[
               Text(
@@ -228,7 +254,9 @@ class _LiveScoreState extends State<LiveScores> {
               ),
             ],
           ),
-          SizedBox(width: 10.0,),
+          SizedBox(
+            width: 10.0,
+          ),
           Column(
             children: <Widget>[
               Text(
@@ -242,7 +270,9 @@ class _LiveScoreState extends State<LiveScores> {
               ),
             ],
           ),
-          SizedBox(width: 10.0,),
+          SizedBox(
+            width: 10.0,
+          ),
           Column(
             children: <Widget>[
               Text(
@@ -261,11 +291,11 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Batsman and Bowler details
-    final bottomTitleSection = new Container(
+    final bottomTitleSection = Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Container(
+          Container(
             child: Image(
               image: AssetImage("./assets/batsman.png"),
               height: 94.0,
@@ -275,16 +305,18 @@ class _LiveScoreState extends State<LiveScores> {
           Text(
             'Batting',
             textScaleFactor: 1.7,
-            style: TextStyle(color: Color(0xFF404040),),
+            style: TextStyle(
+              color: Color(0xFF404040),
+            ),
           ),
           SizedBox(width: 25.0),
-          new Container(
+          Container(
               child: Image(
             image: AssetImage("./assets/Bowler.png"),
             height: 94.0,
             width: 53.0,
           )),
-          new FittedBox(
+          FittedBox(
               child: Text(
             "Bowling",
             textScaleFactor: 1.7,
@@ -294,7 +326,7 @@ class _LiveScoreState extends State<LiveScores> {
       ),
     );
 
-    final batsmanDetails = new Container(
+    final batsmanDetails = Container(
       margin: EdgeInsets.only(left: 10.0, right: 30.0),
       child: Column(
         children: <Widget>[
@@ -318,7 +350,7 @@ class _LiveScoreState extends State<LiveScores> {
       ),
     );
 
-    final bowlerDetails = new Container(
+    final bowlerDetails = Container(
       alignment: Alignment(1.0, 0.0),
       margin: EdgeInsets.only(left: 15.0, right: 10.0),
       child: Column(
@@ -344,20 +376,20 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Batsman and Bowler Wrapper
-    final batsmanandbowler = new Row(
+    final batsmanandbowler = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[batsmanDetails, bowlerDetails],
     );
 
     //Line separator
-    final lineSeperator = new Container(
+    final lineSeperator = Container(
       margin: EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0, bottom: 5.0),
       height: 2.0,
       color: Color(0xFFBCB8B8),
     );
 
     //StatusBar
-    final statusBar = new Container(
+    final statusBar = Container(
         margin: EdgeInsets.only(left: 15.0, right: 10.0, bottom: 25.0),
         child: Center(
           child: Text(
@@ -366,16 +398,16 @@ class _LiveScoreState extends State<LiveScores> {
           ),
         ));
 
-    final summeryCard = new FittedBox(
+    final summeryCard = FittedBox(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        margin: new EdgeInsets.all(10.0),
+        margin: EdgeInsets.all(10.0),
         padding: EdgeInsets.all(5.0),
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: Color(0xFFFFFFFF),
-          borderRadius: new BorderRadius.all(Radius.circular(35.0)),
+          borderRadius: BorderRadius.all(Radius.circular(35.0)),
         ),
-        child: new ListView(
+        child: ListView(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
@@ -397,14 +429,18 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Main Container
-    final mainContainer = new GestureDetector(
+    final mainContainer = GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => highlights()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HighLights(
+                        highlightsAPI: _highlightsAPI,
+                      )));
         },
         child: summeryCard);
 
-    return new Scaffold(
+    return Scaffold(
       body: RefreshIndicator(
         onRefresh: updateState,
         child: Center(
