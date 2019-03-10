@@ -1,4 +1,4 @@
-package com.example.lq2019final
+package com.dev.lq2019final
 
 import android.os.Bundle
 

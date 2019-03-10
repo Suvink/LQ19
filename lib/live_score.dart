@@ -77,7 +77,7 @@ class _LiveScoreState extends State<LiveScores> {
     if (await canLaunch(_streamURL)) {
       await launch(_streamURL);
     } else {
-      throw 'Could not launch live stream! Check Your connection!';
+      throw 'Could not launch live stream! Please check your connection!';
     }
   }
 
