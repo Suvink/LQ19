@@ -41,35 +41,9 @@ class _LiveScoreState extends State<LiveScores> {
   int _wides;
   int _legByes;
   bool _isLoading = true;
+  bool _error = false;
 
-  // @override
-  // void initState() {
-  //   _scoreAPI = widget.initdata['scoreAPI'];
-  //   _highlightsAPI = widget.initdata['highlightsAPI'];
-  //   _streamURL = widget.initdata['streamURL'];
-  //   _crest = widget.initdata['crest'];
-  //   _score = widget.initdata['score'];
-  //   _overs = widget.initdata['overs'];
-  //   _status = widget.initdata['status'];
-  //   _batsmanOne = widget.initdata['batsmanOne'];
-  //   _batsmanTwo = widget.initdata['batsmanTwo'];
-  //   _bowler = widget.initdata['bowler'];
-  //   _runrate = widget.initdata['runrate'];
-  //   _battingTeam = widget.initdata['battingTeam'];
-  //   _batsmanOneScore = widget.initdata['batsmanOneScore'];
-  //   _batsmanTwoScore = widget.initdata['batsmanTwoScore'];
-  //   _bowlerScore = widget.initdata['bowlerScore'];
-  //   _recentOver = widget.initdata['recentOver'];
-  //   _recentOverExtras = widget.initdata['recentOverExtras'];
-  //   _totalextras = widget.initdata['totalextras'];
-  //   _noBalls = widget.initdata['noBalls'];
-  //   _wides = widget.initdata['wides'];
-  //   _legByes = widget.initdata['legByes'];
-
-  //   super.initState();
-  // }
-
-  Future<Null> updateState() {
+  Future updateState() async {
     return http
         .get(
             "https://raw.githubusercontent.com/Suvink/MekaJsonEkak/master/main.json")
@@ -104,6 +78,14 @@ class _LiveScoreState extends State<LiveScores> {
             _isLoading = false;
           });
         }
+      }).catchError((e) {
+        setState(() {
+          _error = true;
+        });
+      });
+    }).catchError((e) {
+      setState(() {
+        _error = true;
       });
     });
   }
@@ -122,6 +104,47 @@ class _LiveScoreState extends State<LiveScores> {
   Widget build(BuildContext context) {
     updateState();
 
+    if (_error) {
+      return new Scaffold(
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Oops! Something is wrong',
+              textScaleFactor: 2,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Please make sure you have active internet connection',
+              textScaleFactor: 1.5,
+              textAlign: TextAlign.center,
+            ),
+            RaisedButton(
+              padding: const EdgeInsets.all(8.0),
+              textColor: Colors.white,
+              color: Colors.red,
+              onPressed: () {
+                setState(() {
+                  _isLoading = true;
+                  _error = false;
+                });
+                updateState();
+              },
+              child: new Text("Try Again"),
+            ),
+          ],
+        )),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color(0xFF300e57).withOpacity(0.7),
+          onPressed: _launchURL,
+          tooltip: 'Live Stream',
+          child: Icon(Icons.live_tv),
+          elevation: 2.0,
+        ),
+      );
+    }
+
     if (_isLoading) {
       return new Scaffold(
         body: Center(child: CircularProgressIndicator()),
@@ -134,6 +157,7 @@ class _LiveScoreState extends State<LiveScores> {
         ),
       );
     }
+
     //Title
     final title = Container(
       alignment: Alignment(0.0, 0.0),
@@ -372,7 +396,7 @@ class _LiveScoreState extends State<LiveScores> {
           ),
           Text(
             'Run Rate',
-            style: TextStyle(color: Color(0xFF300e57)),
+            style: TextStyle(color: Color(0xFF404040)),
           ),
           Text(
             _runrate,

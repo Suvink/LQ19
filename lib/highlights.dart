@@ -79,6 +79,7 @@ class _HighLightsState extends State<HighLights> {
         ),
         child: new ListView(
           scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           children: events,
         ),
