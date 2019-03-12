@@ -89,10 +89,18 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final title = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(top: 5.0, bottom: 5.0),
+      margin: new EdgeInsets.only(top: 5.0, bottom: 3.0),
       child: new Text("Richmond Live",
           textScaleFactor: 1.5,
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
+    );
+
+    final Scoretitle = new Container(
+      alignment: Alignment(0.0, 0.0),
+      margin: new EdgeInsets.only( bottom: 5.0),
+      child: new Text("Scorecard",
+          textScaleFactor: 1.2,
+          style: TextStyle(fontFamily: "Montserrat", color: Colors.white.withOpacity(0.8))),
     );
 
     final battingHeading = new Container(
@@ -313,9 +321,11 @@ class _FullScoreCardState extends State<FullScoreCard> {
           color: Color(0xFF0F0755),
           height: MediaQuery.of(context).size.height,
           child: ListView(
+            padding: EdgeInsets.only(bottom: 10.0),
             shrinkWrap: true,
             children: <Widget>[
               title,
+              Scoretitle,
               ListView(
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
