@@ -17,25 +17,29 @@ class FullScoreCard extends StatefulWidget {
 class _FullScoreCardState extends State<FullScoreCard> {
   List richmondBattersState;
   List mahindaBattersState;
+  List richmondBowlerState;
+  List mahindaBowlerState;
   bool _isLoading = true;
   bool _error = false;
 
   Future updateState() {
     return http.get(widget.scoreBoardAPI).then((http.Response response) {
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = json.decode(response.body);
-        if (this.mounted) {
-          setState(() {
-            richmondBattersState = data['Richmond Batters'];
-            mahindaBattersState = data['Mahinda Batters'];
-            _isLoading = false;
-          });
-        }
+      Map<String, dynamic> data = json.decode(response.body);
+      if (this.mounted) {
+        setState(() {
+          richmondBattersState = data['Richmond Batters'];
+          mahindaBattersState = data['Mahinda Batters'];
+          richmondBowlerState = data['Richmond Bowlers'];
+          mahindaBowlerState = data['Mahinda Bowlers'];
+          _isLoading = false;
+        });
       }
     }).catchError((e) {
-      setState(() {
-        _error = true;
-      });
+      if (this.mounted) {
+        setState(() {
+          _error = true;
+        });
+      }
     });
   }
 
@@ -64,10 +68,12 @@ class _FullScoreCardState extends State<FullScoreCard> {
               textColor: Colors.white,
               color: Color(0xFF300e57),
               onPressed: () {
-                setState(() {
-                  _isLoading = true;
-                  _error = false;
-                });
+                if (this.mounted) {
+                  setState(() {
+                    _isLoading = true;
+                    _error = false;
+                  });
+                }
                 updateState();
               },
               child: new Text("Try Again"),
@@ -89,7 +95,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
     );
 
-    final battingheading = new Container(
+    final battingHeading = new Container(
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -148,9 +154,12 @@ class _FullScoreCardState extends State<FullScoreCard> {
     var richmondBatters = List<Widget>();
     richmondBatters.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("Richmond College", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,textScaleFactor: 1.2),
+      child: Text("Richmond College - Batting",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+          textScaleFactor: 1.2),
     ));
-    richmondBatters.add(battingheading);
+    richmondBatters.add(battingHeading);
     for (var player in richmondBattersState) {
       richmondBatters.add(
         new BattingFullScoreCard(
@@ -166,12 +175,16 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     var mahindaBatters = List<Widget>();
-    richmondBatters.add(Container(
-      padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-      child: Text("Mahinda College", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,textScaleFactor: 1.2),
+
+    mahindaBatters.add(Container(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Text("Mahinda College - Batting",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+          textScaleFactor: 1.2),
     ));
 
-    mahindaBatters.add(battingheading);
+    mahindaBatters.add(battingHeading);
     for (var player in mahindaBattersState) {
       mahindaBatters.add(
         new BattingFullScoreCard(
@@ -187,7 +200,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     //Bowling head
-    final bowlingheading = new Container(
+    final bowlingHeading = new Container(
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -199,51 +212,90 @@ class _FullScoreCardState extends State<FullScoreCard> {
           TableRow(children: [
             TableCell(
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      new Container(
-                        width: 75.0,
-                        child: Text("Bowler",
-                            textScaleFactor: 1.0,
-                            style: TextStyle(
-                                fontFamily: "Montserrat",
-                                color: Color(0xFF0F0755))),
-                      ),
-                      new Text("O",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
-                      new Text("M",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
-                      new Text("R",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
-                      new Text("W",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
-                      new Text("Econ",
-                          textScaleFactor: 1.0,
-                          style: TextStyle(
-                              fontFamily: "Montserrat", color: Color(0xFF0F0755)))
-                    ],
+              padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Container(
+                    width: 75.0,
+                    child: Text("Bowler",
+                        textScaleFactor: 1.0,
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Color(0xFF0F0755))),
                   ),
-                ))
+                  new Text("O",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                  new Text("M",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                  new Text("R",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                  new Text("W",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                  new Text("Econ",
+                      textScaleFactor: 1.0,
+                      style: TextStyle(
+                          fontFamily: "Montserrat", color: Color(0xFF0F0755)))
+                ],
+              ),
+            ))
           ]),
         ],
       ),
     );
 
+    var richmondBowlers = List<Widget>();
+    richmondBowlers.add(Container(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Text("Richmond College - Bowling",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+          textScaleFactor: 1.2),
+    ));
+    richmondBowlers.add(bowlingHeading);
+    for (var player in richmondBowlerState) {
+      richmondBowlers.add(
+        new BowlingFullScoreCard(
+          name: player['name'],
+          runs: player['overs'],
+          overs: player['maiden'],
+          m: player['runs'],
+          wickets: player['wickets'],
+          econ: player['econ'],
+        ),
+      );
+    }
 
+    var mahindaBowlers = List<Widget>();
+    mahindaBowlers.add(Container(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Text("Mahinda College - Bowling",
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+          textScaleFactor: 1.2),
+    ));
 
-
-
-
+    mahindaBowlers.add(bowlingHeading);
+    for (var player in mahindaBowlerState) {
+      mahindaBowlers.add(
+        new BowlingFullScoreCard(
+          name: player['name'],
+          runs: player['overs'],
+          overs: player['maiden'],
+          m: player['runs'],
+          wickets: player['wickets'],
+          econ: player['econ'],
+        ),
+      );
+    }
 
     return new Scaffold(
       body: Center(
@@ -264,7 +316,19 @@ class _FullScoreCardState extends State<FullScoreCard> {
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                children: richmondBowlers,
+              ),
+              ListView(
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 children: mahindaBatters,
+              ),
+              ListView(
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: mahindaBowlers,
               )
             ],
           ),
@@ -357,64 +421,78 @@ class BattingFullScoreCard extends StatelessWidget {
   }
 }
 
+class BowlingFullScoreCard extends StatelessWidget {
+  const BowlingFullScoreCard({
+    Key key,
+    this.name,
+    this.overs,
+    this.runs,
+    this.m,
+    this.wickets,
+    this.econ,
+  }) : super(key: key);
 
+  final String name;
+  final String runs;
+  final String overs;
+  final String m;
+  final String wickets;
+  final String econ;
 
-
-final bowlerrr = new Padding(
-  padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
-  child: Container(
-    color: Color(0xFFFFFFFF).withOpacity(0.0),
-    child: Table(
-      children: [
-        TableRow(children: [
-          TableCell(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                new Container(
-                  width: 65.0,
-                  child: Text("Charith",
-                      textScaleFactor: 0.8,
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                      )),
+  @override
+  Widget build(BuildContext context) {
+    return new Padding(
+      padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+      child: Container(
+        color: Color(0xFFFFFFFF).withOpacity(0.0),
+        child: Table(
+          children: [
+            TableRow(children: [
+              TableCell(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    new Container(
+                      width: 65.0,
+                      child: Text("$name",
+                          textScaleFactor: 0.8,
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                          )),
+                    ),
+                    new Text("$overs",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                            fontSize: 11.0)),
+                    new Text("$m",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                            fontSize: 11.0)),
+                    new Text("$runs",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                            fontSize: 11.0)),
+                    new Text("$wickets",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                            fontSize: 11.0)),
+                    new Text("$econ",
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
+                            color: Colors.white,
+                            fontSize: 11.0))
+                  ],
                 ),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-                new Text("1",
-                    style: TextStyle(
-                        fontFamily: "Montserrat",
-                        color: Colors.white,
-                        fontSize: 11.0)),
-              ],
-            ),
-          ),
-        ]),
-      ],
-    ),
-  ),
-);
+              ),
+            ]),
+          ],
+        ),
+      ),
+    );
+  }
+}

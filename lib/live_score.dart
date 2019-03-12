@@ -53,8 +53,8 @@ class _LiveScoreState extends State<LiveScores> {
       _scoreAPI = apis['scoreAPI'];
       _fullScoreCardAPI = apis['scoreoardAPI'];
       http.get(_scoreAPI).then((http.Response response) {
-        if (response.statusCode == 200) {
-          Map<String, dynamic> data = json.decode(response.body);
+        Map<String, dynamic> data = json.decode(response.body);
+        if (this.mounted) {
           setState(() {
             _crest = data['crest'];
             _score = data['score'];
@@ -79,14 +79,18 @@ class _LiveScoreState extends State<LiveScores> {
           });
         }
       }).catchError((e) {
+        if (this.mounted) {
+          setState(() {
+            _error = true;
+          });
+        }
+      });
+    }).catchError((e) {
+      if (this.mounted) {
         setState(() {
           _error = true;
         });
-      });
-    }).catchError((e) {
-      setState(() {
-        _error = true;
-      });
+      }
     });
   }
 
@@ -125,10 +129,12 @@ class _LiveScoreState extends State<LiveScores> {
               textColor: Colors.white,
               color: Color(0xFF300e57),
               onPressed: () {
-                setState(() {
-                  _isLoading = true;
-                  _error = false;
-                });
+                if (this.mounted) {
+                  setState(() {
+                    _isLoading = true;
+                    _error = false;
+                  });
+                }
                 updateState();
               },
               child: new Text("Try Again"),
