@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'highlights.dart';
-import 'score_ball.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'score_ball.dart';
+import 'scorecard.dart';
 
 class LiveScores extends StatefulWidget {
   final Map<String, dynamic> initdata;
@@ -20,7 +20,7 @@ class LiveScores extends StatefulWidget {
 
 class _LiveScoreState extends State<LiveScores> {
   String _scoreAPI;
-  String _highlightsAPI;
+  String _fullScoreCardAPI;
   String _streamURL;
   String _crest;
   String _score;
@@ -51,7 +51,7 @@ class _LiveScoreState extends State<LiveScores> {
       Map<String, dynamic> apis = json.decode(response.body);
       _streamURL = apis['streamURL'];
       _scoreAPI = apis['scoreAPI'];
-      _highlightsAPI = apis['highlightsAPI'];
+      _fullScoreCardAPI = apis['scoreoardAPI'];
       http.get(_scoreAPI).then((http.Response response) {
         if (response.statusCode == 200) {
           Map<String, dynamic> data = json.decode(response.body);
@@ -465,8 +465,8 @@ class _LiveScoreState extends State<LiveScores> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HighLights(
-                        highlightsAPI: _highlightsAPI,
+                  builder: (context) => FullScoreCard(
+                        scoreBoardAPI: _fullScoreCardAPI,
                       )));
         },
         child: summeryCard);
