@@ -186,6 +186,65 @@ class _FullScoreCardState extends State<FullScoreCard> {
       );
     }
 
+    //Bowling head
+    final bowlingheading = new Container(
+      decoration: new BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35.0),
+            topRight: Radius.circular(35.0),
+          )),
+      child: Table(
+        children: [
+          TableRow(children: [
+            TableCell(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      new Container(
+                        width: 75.0,
+                        child: Text("Bowler",
+                            textScaleFactor: 1.0,
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                color: Color(0xFF0F0755))),
+                      ),
+                      new Text("O",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                      new Text("M",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                      new Text("R",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                      new Text("W",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              fontFamily: "Montserrat", color: Color(0xFF0F0755))),
+                      new Text("Econ",
+                          textScaleFactor: 1.0,
+                          style: TextStyle(
+                              fontFamily: "Montserrat", color: Color(0xFF0F0755)))
+                    ],
+                  ),
+                ))
+          ]),
+        ],
+      ),
+    );
+
+
+
+
+
+
+
     return new Scaffold(
       body: Center(
         child: Container(
