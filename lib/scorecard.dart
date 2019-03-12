@@ -89,7 +89,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final title = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(top: 30.0, bottom: 5.0),
+      margin: new EdgeInsets.only(top: 5.0, bottom: 5.0),
       child: new Text("Richmond Live",
           textScaleFactor: 1.5,
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
@@ -151,7 +151,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
       ),
     );
 
-    int _i = 0;
     var richmondBatters = List<Widget>();
     richmondBatters.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -171,14 +170,12 @@ class _FullScoreCardState extends State<FullScoreCard> {
           sixes: player['6s'],
           sr: player['s/r'],
           balls: player['balls'],
-          index: _i,
         ),
       );
-      _i++;
     }
 
-    _i = 0;
     var mahindaBatters = List<Widget>();
+
     mahindaBatters.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
       child: Text("Mahinda College - Batting",
@@ -198,10 +195,8 @@ class _FullScoreCardState extends State<FullScoreCard> {
           sixes: player['6s'],
           sr: player['s/r'],
           balls: player['balls'],
-          index: _i,
         ),
       );
-      _i++;
     }
 
     //Bowling head
@@ -257,7 +252,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
       ),
     );
 
-    _i = 0;
     var richmondBowlers = List<Widget>();
     richmondBowlers.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -276,13 +270,10 @@ class _FullScoreCardState extends State<FullScoreCard> {
           m: player['runs'],
           wickets: player['wickets'],
           econ: player['econ'],
-          index: _i,
         ),
       );
-      _i++;
     }
 
-    _i = 0;
     var mahindaBowlers = List<Widget>();
     mahindaBowlers.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -291,6 +282,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
     ));
+
     mahindaBowlers.add(bowlingHeading);
     for (var player in mahindaBowlerState) {
       mahindaBowlers.add(
@@ -301,10 +293,8 @@ class _FullScoreCardState extends State<FullScoreCard> {
           m: player['runs'],
           wickets: player['wickets'],
           econ: player['econ'],
-          index: _i,
         ),
       );
-      _i++;
     }
 
     return new Scaffold(
@@ -313,7 +303,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
           color: Color(0xFF0F0755),
           height: MediaQuery.of(context).size.height,
           child: ListView(
-            padding: EdgeInsets.only(bottom: 5.0),
             shrinkWrap: true,
             children: <Widget>[
               title,
@@ -359,7 +348,6 @@ class BattingFullScoreCard extends StatelessWidget {
     this.fours,
     this.sixes,
     this.sr,
-    this.index,
   }) : super(key: key);
 
   final String name;
@@ -369,21 +357,13 @@ class BattingFullScoreCard extends StatelessWidget {
   final String fours;
   final String sixes;
   final String sr;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
-    Color bgColor;
-    if (index.isEven) {
-      bgColor = Color(0xFFFFFFFF).withOpacity(0);
-    } else {
-      bgColor = Color(0xFFFFFFFF).withOpacity(0.2);
-    }
-
     return new Padding(
       padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
       child: Container(
-        color: bgColor,
+        color: Color(0xFFFFFFFF).withOpacity(0.0),
         child: Table(
           children: [
             TableRow(children: [
@@ -442,16 +422,15 @@ class BattingFullScoreCard extends StatelessWidget {
 }
 
 class BowlingFullScoreCard extends StatelessWidget {
-  const BowlingFullScoreCard(
-      {Key key,
-      this.name,
-      this.overs,
-      this.runs,
-      this.m,
-      this.wickets,
-      this.econ,
-      this.index})
-      : super(key: key);
+  const BowlingFullScoreCard({
+    Key key,
+    this.name,
+    this.overs,
+    this.runs,
+    this.m,
+    this.wickets,
+    this.econ,
+  }) : super(key: key);
 
   final String name;
   final String runs;
@@ -459,21 +438,13 @@ class BowlingFullScoreCard extends StatelessWidget {
   final String m;
   final String wickets;
   final String econ;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
-    Color bgColor;
-    if (index.isEven) {
-      bgColor = Color(0xFFFFFFFF).withOpacity(0);
-    } else {
-      bgColor = Color(0xFFFFFFFF).withOpacity(0.2);
-    }
-
     return new Padding(
       padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
       child: Container(
-        color: bgColor,
+        color: Color(0xFFFFFFFF).withOpacity(0.0),
         child: Table(
           children: [
             TableRow(children: [
