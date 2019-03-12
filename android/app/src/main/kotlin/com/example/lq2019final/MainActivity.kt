@@ -1,4 +1,4 @@
-package com.iconicto.lq19
+package com.richmondlive.loversquarrel19
 
 import android.os.Bundle
 
