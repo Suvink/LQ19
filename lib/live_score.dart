@@ -111,19 +111,19 @@ class _LiveScoreState extends State<LiveScores> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Oops! Something is wrong',
+              'Oops! Something went wrong!',
               textScaleFactor: 2,
               textAlign: TextAlign.center,
             ),
             Text(
-              'Please make sure you have active internet connection',
-              textScaleFactor: 1.5,
+              'Please make sure you have an active internet connection!',
+              textScaleFactor: 1.0,
               textAlign: TextAlign.center,
             ),
             RaisedButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
-              color: Colors.red,
+              color: Color(0xFF300e57),
               onPressed: () {
                 setState(() {
                   _isLoading = true;
