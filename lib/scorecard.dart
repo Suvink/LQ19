@@ -146,6 +146,10 @@ class _FullScoreCardState extends State<FullScoreCard> {
     );
 
     var richmondBatters = List<Widget>();
+    richmondBatters.add(Container(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Text("Richmond College", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,textScaleFactor: 1.2),
+    ));
     richmondBatters.add(battingheading);
     for (var player in richmondBattersState) {
       richmondBatters.add(
@@ -162,6 +166,11 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     var mahindaBatters = List<Widget>();
+    richmondBatters.add(Container(
+      padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
+      child: Text("Mahinda College", style: TextStyle(color: Colors.white),textAlign: TextAlign.center,textScaleFactor: 1.2),
+    ));
+
     mahindaBatters.add(battingheading);
     for (var player in mahindaBattersState) {
       mahindaBatters.add(
