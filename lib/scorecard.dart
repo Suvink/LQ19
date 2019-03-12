@@ -89,7 +89,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final title = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(top: 5.0, bottom: 20.0),
+      margin: new EdgeInsets.only(top: 30.0, bottom: 5.0),
       child: new Text("Richmond Live",
           textScaleFactor: 1.5,
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
@@ -313,6 +313,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
           color: Color(0xFF0F0755),
           height: MediaQuery.of(context).size.height,
           child: ListView(
+            padding: EdgeInsets.only(bottom: 5.0),
             shrinkWrap: true,
             children: <Widget>[
               title,
