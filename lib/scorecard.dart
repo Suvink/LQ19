@@ -356,3 +356,65 @@ class BattingFullScoreCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+final bowlerrr = new Padding(
+  padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
+  child: Container(
+    color: Color(0xFFFFFFFF).withOpacity(0.0),
+    child: Table(
+      children: [
+        TableRow(children: [
+          TableCell(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                new Container(
+                  width: 65.0,
+                  child: Text("Charith",
+                      textScaleFactor: 0.8,
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                      )),
+                ),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+                new Text("1",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        color: Colors.white,
+                        fontSize: 11.0)),
+              ],
+            ),
+          ),
+        ]),
+      ],
+    ),
+  ),
+);
