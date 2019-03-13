@@ -97,10 +97,11 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final Scoretitle = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only( bottom: 5.0),
+      margin: new EdgeInsets.only(bottom: 5.0),
       child: new Text("Scorecard",
           textScaleFactor: 1.2,
-          style: TextStyle(fontFamily: "Montserrat", color: Colors.white.withOpacity(0.8))),
+          style: TextStyle(
+              fontFamily: "Montserrat", color: Colors.white.withOpacity(0.8))),
     );
 
     final battingHeading = new Container(
@@ -132,10 +133,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
                       style: TextStyle(
                           fontFamily: "Montserrat", color: Color(0xFF0F0755))),
                   new Text("B",
-                      textScaleFactor: 1.0,
-                      style: TextStyle(
-                          fontFamily: "Montserrat", color: Color(0xFF0F0755))),
-                  new Text("M",
                       textScaleFactor: 1.0,
                       style: TextStyle(
                           fontFamily: "Montserrat", color: Color(0xFF0F0755))),
@@ -415,11 +412,6 @@ class BattingFullScoreCard extends StatelessWidget {
                             color: Colors.white,
                             fontSize: 11.0)),
                     new Text("$balls",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            color: Colors.white,
-                            fontSize: 11.0)),
-                    new Text("$m",
                         style: TextStyle(
                             fontFamily: "Montserrat",
                             color: Colors.white,
