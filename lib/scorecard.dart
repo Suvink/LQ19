@@ -89,7 +89,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final title = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(top: 5.0, bottom: 3.0),
+      margin: new EdgeInsets.only(top: 20.0, bottom: 3.0),
       child: new Text("Richmond Live",
           textScaleFactor: 1.5,
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
@@ -97,7 +97,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
 
     final Scoretitle = new Container(
       alignment: Alignment(0.0, 0.0),
-      margin: new EdgeInsets.only(bottom: 5.0),
       child: new Text("Scorecard",
           textScaleFactor: 1.2,
           style: TextStyle(
