@@ -34,7 +34,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
           _teamOneBattingData = data['teamOneBatting'];
           _teamTwoBattingData = data['teamTwoBatting'];
           _teamOneBallData = data['teamOneBall'];
-          _teamTwoBallData = data['teamTwoBatting'];
+          _teamTwoBallData = data['teamTwoBall'];
           _isLoading = false;
         });
       }
