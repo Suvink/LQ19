@@ -232,14 +232,14 @@ class _LiveScoreState extends State<LiveScores> {
     );
 
     //Extras Title
-    final extrasTitle = Container(
-      margin: EdgeInsets.only(top: 5.0),
-      alignment: Alignment(0.0, 0.0),
-      child: Text(
-        'Extras',
-        style: TextStyle(color: Color(0xFF404040)),
-      ),
-    );
+    // final extrasTitle = Container(
+    //   margin: EdgeInsets.only(top: 5.0),
+    //   alignment: Alignment(0.0, 0.0),
+    //   child: Text(
+    //     'Extras',
+    //     style: TextStyle(color: Color(0xFF404040)),
+    //   ),
+    // );
 
     // Create Extras List
     var extras = List<Widget>();
@@ -248,11 +248,11 @@ class _LiveScoreState extends State<LiveScores> {
     }
 
     //Extras Wrapper
-    final extrasSet = Container(
-      alignment: Alignment(0.0, 0.0),
-      margin: EdgeInsets.only(top: 7.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: extras),
-    );
+    // final extrasSet = Container(
+    //   alignment: Alignment(0.0, 0.0),
+    //   margin: EdgeInsets.only(top: 7.0),
+    //   child: Row(mainAxisAlignment: MainAxisAlignment.center, children: extras),
+    // );
 
     final totalextras = Container(
       margin: EdgeInsets.only(top: 10.0, bottom: 10.0),

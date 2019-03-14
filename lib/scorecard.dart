@@ -15,10 +15,12 @@ class FullScoreCard extends StatefulWidget {
 }
 
 class _FullScoreCardState extends State<FullScoreCard> {
-  List richmondBattersState;
-  List mahindaBattersState;
-  List richmondBowlerState;
-  List mahindaBowlerState;
+  String _teamOneName;
+  String _teamTwoName;
+  List _teamOneBattingData;
+  List _teamTwoBattingData;
+  List _teamOneBallData;
+  List _teamTwoBallData;
   bool _isLoading = true;
   bool _error = false;
 
@@ -27,10 +29,12 @@ class _FullScoreCardState extends State<FullScoreCard> {
       Map<String, dynamic> data = json.decode(response.body);
       if (this.mounted) {
         setState(() {
-          richmondBattersState = data['Richmond Batters'];
-          mahindaBattersState = data['Mahinda Batters'];
-          richmondBowlerState = data['Richmond Bowlers'];
-          mahindaBowlerState = data['Mahinda Bowlers'];
+          _teamOneName = data['teamOneName'];
+          _teamTwoName = data['teamTwoName'];
+          _teamOneBattingData = data['teamOneBatting'];
+          _teamTwoBattingData = data['teamTwoBatting'];
+          _teamOneBallData = data['teamOneBall'];
+          _teamTwoBallData = data['teamTwoBatting'];
           _isLoading = false;
         });
       }
@@ -95,7 +99,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
           style: TextStyle(fontFamily: "Montserrat", color: Colors.white)),
     );
 
-    final Scoretitle = new Container(
+    final scoretitle = new Container(
       alignment: Alignment(0.0, 0.0),
       child: new Text("Scorecard",
           textScaleFactor: 1.2,
@@ -156,17 +160,17 @@ class _FullScoreCardState extends State<FullScoreCard> {
     );
 
     int _i = 0;
-    var richmondBatters = List<Widget>();
-    richmondBatters.add(Container(
+    var teamOneBatting = List<Widget>();
+    teamOneBatting.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("Richmond College - Batting",
+      child: Text("$_teamOneName - Batting",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
     ));
-    richmondBatters.add(battingHeading);
-    for (var player in richmondBattersState) {
-      richmondBatters.add(
+    teamOneBatting.add(battingHeading);
+    for (var player in _teamOneBattingData) {
+      teamOneBatting.add(
         new BattingFullScoreCard(
           name: player['name'],
           runs: player['runs'],
@@ -182,18 +186,18 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     _i = 0;
-    var mahindaBatters = List<Widget>();
-    mahindaBatters.add(Container(
+    var teamTwoBatting = List<Widget>();
+    teamTwoBatting.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("Mahinda College - Batting",
+      child: Text("$_teamTwoName - Batting",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
     ));
 
-    mahindaBatters.add(battingHeading);
-    for (var player in mahindaBattersState) {
-      mahindaBatters.add(
+    teamTwoBatting.add(battingHeading);
+    for (var player in _teamTwoBattingData) {
+      teamTwoBatting.add(
         new BattingFullScoreCard(
           name: player['name'],
           runs: player['runs'],
@@ -262,17 +266,17 @@ class _FullScoreCardState extends State<FullScoreCard> {
     );
 
     _i = 0;
-    var richmondBowlers = List<Widget>();
-    richmondBowlers.add(Container(
+    var teamTwoBall = List<Widget>();
+    teamTwoBall.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("Richmond College - Bowling",
+      child: Text("$_teamOneName - Bowling",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
     ));
-    richmondBowlers.add(bowlingHeading);
-    for (var player in richmondBowlerState) {
-      richmondBowlers.add(
+    teamTwoBall.add(bowlingHeading);
+    for (var player in _teamTwoBallData) {
+      teamTwoBall.add(
         new BowlingFullScoreCard(
           name: player['name'],
           runs: player['overs'],
@@ -287,17 +291,17 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     _i = 0;
-    var mahindaBowlers = List<Widget>();
-    mahindaBowlers.add(Container(
+    var teamOneBall = List<Widget>();
+    teamOneBall.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("Mahinda College - Bowling",
+      child: Text("$_teamTwoName - Bowling",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
     ));
-    mahindaBowlers.add(bowlingHeading);
-    for (var player in mahindaBowlerState) {
-      mahindaBowlers.add(
+    teamOneBall.add(bowlingHeading);
+    for (var player in _teamOneBallData) {
+      teamOneBall.add(
         new BowlingFullScoreCard(
           name: player['name'],
           runs: player['overs'],
@@ -312,41 +316,44 @@ class _FullScoreCardState extends State<FullScoreCard> {
     }
 
     return new Scaffold(
-      body: Center(
-        child: Container(
-          color: Color(0xFF0F0755),
-          height: MediaQuery.of(context).size.height,
-          child: ListView(
-            padding: EdgeInsets.only(bottom: 10.0),
-            shrinkWrap: true,
-            children: <Widget>[
-              title,
-              Scoretitle,
-              ListView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: richmondBatters,
-              ),
-              ListView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: richmondBowlers,
-              ),
-              ListView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: mahindaBatters,
-              ),
-              ListView(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: mahindaBowlers,
-              )
-            ],
+      body: RefreshIndicator(
+        onRefresh: updateState,
+        child: Center(
+          child: Container(
+            color: Color(0xFF0F0755),
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
+              padding: EdgeInsets.only(bottom: 10.0),
+              shrinkWrap: true,
+              children: <Widget>[
+                title,
+                scoretitle,
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: teamOneBatting,
+                ),
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: teamTwoBall,
+                ),
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: teamTwoBatting,
+                ),
+                ListView(
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: teamTwoBall,
+                )
+              ],
+            ),
           ),
         ),
       ),
