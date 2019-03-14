@@ -174,7 +174,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
         new BattingFullScoreCard(
           name: player['name'],
           runs: player['runs'],
-          m: player['m'],
           fours: player['4s'],
           sixes: player['6s'],
           sr: player['s/r'],
@@ -201,7 +200,6 @@ class _FullScoreCardState extends State<FullScoreCard> {
         new BattingFullScoreCard(
           name: player['name'],
           runs: player['runs'],
-          m: player['m'],
           fours: player['4s'],
           sixes: player['6s'],
           sr: player['s/r'],
@@ -269,7 +267,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
     var teamTwoBall = List<Widget>();
     teamTwoBall.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("$_teamOneName - Bowling",
+      child: Text("$_teamTwoName - Bowling",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
@@ -279,9 +277,9 @@ class _FullScoreCardState extends State<FullScoreCard> {
       teamTwoBall.add(
         new BowlingFullScoreCard(
           name: player['name'],
-          runs: player['overs'],
-          overs: player['maiden'],
-          m: player['runs'],
+          runs: player['runs'],
+          overs: player['overs'],
+          m: player['maiden'],
           wickets: player['wickets'],
           econ: player['econ'],
           index: _i,
@@ -294,7 +292,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
     var teamOneBall = List<Widget>();
     teamOneBall.add(Container(
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-      child: Text("$_teamTwoName - Bowling",
+      child: Text("$_teamOneName - Bowling",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
           textScaleFactor: 1.2),
@@ -304,9 +302,9 @@ class _FullScoreCardState extends State<FullScoreCard> {
       teamOneBall.add(
         new BowlingFullScoreCard(
           name: player['name'],
-          runs: player['overs'],
-          overs: player['maiden'],
-          m: player['runs'],
+          runs: player['runs'],
+          overs: player['overs'],
+          m: player['maiden'],
           wickets: player['wickets'],
           econ: player['econ'],
           index: _i,
@@ -350,7 +348,7 @@ class _FullScoreCardState extends State<FullScoreCard> {
                   scrollDirection: Axis.vertical,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: teamTwoBall,
+                  children: teamOneBall,
                 )
               ],
             ),
@@ -367,7 +365,6 @@ class BattingFullScoreCard extends StatelessWidget {
     this.name,
     this.runs,
     this.balls,
-    this.m,
     this.fours,
     this.sixes,
     this.sr,
@@ -377,7 +374,6 @@ class BattingFullScoreCard extends StatelessWidget {
   final String name;
   final String runs;
   final String balls;
-  final String m;
   final String fours;
   final String sixes;
   final String sr;
